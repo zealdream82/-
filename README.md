@@ -1,20 +1,8 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Mealjeop (밀접) Landing Page
 
-# Run and deploy your AI Studio app
+식당 키오스크 맞춤 영양제 서비스 '밀접'의 랜딩 페이지입니다.
 
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/c205cade-8c79-460d-8b58-4cca8ec5aa9a
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 업데이트 내역
+- 히어로 섹션 이미지 업데이트 (v4)
+- 로그인 에러 핸들링 추가
+- 애니메이션 안정화
