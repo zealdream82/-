@@ -443,8 +443,9 @@ export default function App() {
   const handleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login failed", error);
+      alert(`로그인 실패: ${error.message}\n\n(Firebase 승인된 도메인 설정을 다시 확인해주세요. https:// 나 / 없이 도메인 주소만 입력해야 합니다.)`);
     }
   };
 
@@ -599,20 +600,17 @@ export default function App() {
             <div className="relative">
               <div className="absolute -top-12 -right-12 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
-              <motion.div 
-                initial={{ opacity: 0, x: 30, rotate: 4 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-                className="image-frame rounded-3xl hover:rotate-0 transition-transform duration-700"
+              <div 
+                className="image-frame rounded-3xl hover:rotate-0 transition-transform duration-700 relative"
+                style={{ transform: 'rotate(1deg)' }}
               >
                 <img 
                   alt="식당 키오스크에서 밀접(Mealjeop) 스마트 맞춤 조제 영양제를 꺼내 든 모습" 
-                  className="w-full h-full object-cover rounded-2xl aspect-[1.8/1] md:aspect-[1.5/1]" 
-                  src="/hero_image_v2.png"
+                  className="w-full h-full object-cover rounded-2xl aspect-[1.8/1] md:aspect-[1.5/1] block relative z-10" 
+                  src="/hero_image_v2.png?v=3"
                   referrerPolicy="no-referrer"
                 />
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
