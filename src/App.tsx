@@ -36,6 +36,7 @@ import {
 import { collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc } from 'firebase/firestore';
 import { signInWithPopup, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { db, auth, googleProvider } from './firebase';
+import heroImage from './assets/hero_image_v2.png';
 
 enum OperationType {
   CREATE = 'create',
@@ -607,7 +608,7 @@ export default function App() {
                 <img 
                   alt="식당 키오스크에서 밀접(Mealjeop) 스마트 맞춤 조제 영양제를 꺼내 든 모습" 
                   className="w-full h-full object-cover rounded-2xl aspect-[1.8/1] md:aspect-[1.5/1] block relative z-10" 
-                  src="/hero_image_v2.png?v=3"
+                  src={heroImage}
                   referrerPolicy="no-referrer"
                 />
               </div>
