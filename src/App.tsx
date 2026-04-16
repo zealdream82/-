@@ -258,47 +258,37 @@ function AdminDashboard() {
   );
 }
 
-import Markdown from 'react-markdown';
-
-function Chatbot() {
+function InquiryForm() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{ role: 'user' | 'model', content: string }[]>([
-    { role: 'model', content: '안녕하세요! 밀접 서비스에 대해 궁금한 점이 있으신가요? 무엇이든 물어보세요.' }
-  ]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message || isSubmitting) return;
 
-    const userMessage = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    setIsLoading(true);
-
+    setIsSubmitting(true);
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages, userMessage })
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (db) {
+        await addDoc(collection(db, 'inquiries'), {
+          ...form,
+          createdAt: serverTimestamp(),
+        });
+      } else {
+        console.log("No DB, simulated submission:", form);
       }
-
-      const data = await response.json();
-      
-      if (data.text) {
-        setMessages(prev => [...prev, { role: 'model', content: data.text }]);
-      } else if (data.error) {
-        setMessages(prev => [...prev, { role: 'model', content: data.error }]);
-      }
+      setSuccess(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setSuccess(false);
+        setForm({ name: '', email: '', message: '' });
+      }, 3000);
     } catch (error) {
-      console.error("Chatbot error:", error);
-      setMessages(prev => [...prev, { role: 'model', content: '죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' }]);
+      console.error("Inquiry submitting error:", error);
+      alert("전송 중 오류가 발생했습니다. 다시 시도해 주세요.");
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -312,7 +302,7 @@ function Chatbot() {
         <MessageCircle className="w-7 h-7" />
       </button>
 
-      {/* Chat Window */}
+      {/* Inquiry Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -325,64 +315,80 @@ function Chatbot() {
             <div className="bg-primary text-white p-4 flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <MessageCircle className="w-5 h-5" />
-                <span className="font-bold">밀접 고객센터</span>
+                <span className="font-bold">밀접 고객문의</span>
               </div>
               <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 p-4 overflow-y-auto bg-surface-container-lowest flex flex-col gap-4">
-              {messages.map((msg, idx) => (
-                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div 
-                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${
-                      msg.role === 'user' 
-                        ? 'bg-secondary text-white rounded-tr-sm' 
-                        : 'bg-surface-container-low text-on-surface border border-outline-variant/20 rounded-tl-sm'
-                    }`}
-                  >
-                    {msg.role === 'model' ? (
-                      <div className="markdown-body prose prose-sm max-w-none prose-p:leading-relaxed prose-p:m-0">
-                        <Markdown>{msg.content}</Markdown>
-                      </div>
-                    ) : (
-                      msg.content
-                    )}
+            {/* Form */}
+            <div className="flex-1 p-5 overflow-y-auto bg-surface-container-lowest">
+              {success ? (
+                <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
+                  <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-2">
+                    <CheckCircle2 className="w-8 h-8" />
                   </div>
+                  <h3 className="text-xl font-bold text-gray-900">접수 완료</h3>
+                  <p className="text-gray-600 px-4">
+                    문의가 성공적으로 전달되었습니다.<br />담당자가 확인 후 빠르게 답변 드리겠습니다.
+                  </p>
                 </div>
-              ))}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-surface-container-low text-on-surface border border-outline-variant/20 p-3 rounded-2xl rounded-tl-sm text-sm flex gap-1 items-center">
-                    <div className="w-2 h-2 bg-outline rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-outline rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-outline rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+              ) : (
+                <form onSubmit={handleSubmit} className="flex flex-col h-full">
+                  <p className="text-sm text-gray-600 mb-6">서비스에 대해 궁금한 점이나 건의사항이 있으신가요? 내용을 남겨주시면 이메일로 답변해 드립니다.</p>
+                  
+                  <div className="space-y-4 flex-1">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">이름</label>
+                      <input 
+                        required
+                        type="text" 
+                        value={form.name}
+                        onChange={(e) => setForm({...form, name: e.target.value})}
+                        className="w-full bg-white border border-outline-variant/50 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        placeholder="홍길동"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">이메일</label>
+                      <input 
+                        required
+                        type="email" 
+                        value={form.email}
+                        onChange={(e) => setForm({...form, email: e.target.value})}
+                        className="w-full bg-white border border-outline-variant/50 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        placeholder="email@example.com"
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">문의 내용</label>
+                      <textarea 
+                        required
+                        value={form.message}
+                        onChange={(e) => setForm({...form, message: e.target.value})}
+                        className="w-full flex-1 bg-white border border-outline-variant/50 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                        placeholder="궁금한 점을 상세히 적어주세요."
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
 
-            {/* Input */}
-            <div className="p-4 bg-white border-t border-outline-variant/20">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="궁금한 점을 입력해주세요..."
-                  className="flex-1 bg-surface-container-low px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-secondary/30"
-                />
-                <button 
-                  onClick={handleSend}
-                  disabled={!input.trim() || isLoading}
-                  className="bg-primary text-white p-2.5 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <Send className="w-4 h-4" />
-                </button>
-              </div>
+                  <button 
+                    type="submit"
+                    disabled={!form.name || !form.email || !form.message || isSubmitting}
+                    className="mt-6 w-full bg-primary text-white p-3.5 rounded-xl font-bold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        문의 등록하기
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
           </motion.div>
         )}
@@ -1218,7 +1224,7 @@ export default function App() {
         </div>
       </footer>
 
-      <Chatbot />
+      <InquiryForm />
     </div>
   );
 }
