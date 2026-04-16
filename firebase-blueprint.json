@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "Registration": {
+      "title": "Registration",
+      "description": "Pre-launch registration for kiosk alerts.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "User's name" },
+        "location": { "type": "string", "description": "Main living/working area" },
+        "contact": { "type": "string", "description": "Contact number" },
+        "userId": { "type": "string", "description": "Optional Firebase Auth UID" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "location", "contact", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Authenticated user profile",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/registrations/{registrationId}": {
+      "schema": { "$ref": "#/entities/Registration" },
+      "description": "Stores pre-launch registrations."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles."
+    }
+  }
+}

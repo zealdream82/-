@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.email == "zealdream@gmail.com" && request.auth.token.email_verified == true;
+    }
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+    
+    // Domain Validators
+    function isValidRegistration(data) {
+      return hasRequiredFields(['name', 'location', 'contact', 'createdAt']) &&
+             hasOnlyAllowedFields(['name', 'location', 'contact', 'userId', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 50 &&
+             data.location is string && data.location.size() > 0 && data.location.size() <= 100 &&
+             data.contact is string && data.contact.size() > 0 && data.contact.size() <= 20 &&
+             (!('userId' in data) || data.userId == null || (data.userId is string && data.userId.size() <= 50)) &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidRestaurantRecommendation(data) {
+      return hasRequiredFields(['restaurantName', 'restaurantLocation', 'contact', 'createdAt']) &&
+             hasOnlyAllowedFields(['restaurantName', 'restaurantLocation', 'contact', 'userId', 'createdAt']) &&
+             data.restaurantName is string && data.restaurantName.size() > 0 && data.restaurantName.size() <= 100 &&
+             data.restaurantLocation is string && data.restaurantLocation.size() > 0 && data.restaurantLocation.size() <= 150 &&
+             data.contact is string && data.contact.size() > 0 && data.contact.size() <= 20 &&
+             (!('userId' in data) || data.userId == null || (data.userId is string && data.userId.size() <= 50)) &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidUser(data) {
+      return hasRequiredFields(['email', 'createdAt']) &&
+             hasOnlyAllowedFields(['email', 'displayName', 'photoURL', 'createdAt']) &&
+             isValidEmail(data.email) &&
+             (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 50)) &&
+             (!('photoURL' in data) || (data.photoURL is string && data.photoURL.size() <= 200)) &&
+             data.createdAt is timestamp;
+    }
+
+    match /registrations/{registrationId} {
+      allow create: if isValidRegistration(request.resource.data);
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    match /restaurant_recommendations/{recommendationId} {
+      allow create: if isValidRestaurantRecommendation(request.resource.data);
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    match /users/{userId} {
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
+      allow read: if isOwner(userId) || isAdmin();
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if false;
+    }
+  }
+}
