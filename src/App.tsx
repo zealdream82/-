@@ -36,7 +36,7 @@ import {
 import { collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc } from 'firebase/firestore';
 import { signInWithPopup, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { db, auth, googleProvider } from './firebase';
-import heroImage from './assets/hero_optimized.jpg';
+import heroImage from './assets/hero.webp';
 
 enum OperationType {
   CREATE = 'create',
