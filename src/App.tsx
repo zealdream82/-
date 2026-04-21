@@ -474,7 +474,7 @@ const MockupScan = () => (
 );
 
 const MobileFrame = ({ children, activeTab }: { children: React.ReactNode, activeTab: string }) => (
-  <div className="relative w-full h-[calc(100%+2rem)] -mt-4 bg-slate-50 flex flex-col font-sans">
+  <div className="relative w-full h-[calc(100%+2rem)] -mt-4 bg-slate-50 flex flex-col font-sans overflow-hidden">
     {/* Status Bar */}
     <div className="flex justify-between items-center px-6 py-2 pt-6 text-[12px] font-bold text-slate-800 bg-white/90 backdrop-blur-sm relative z-50">
       <span>9:41</span>
@@ -793,15 +793,23 @@ const MockupMyPage = () => (
 );
 
 const UploadedMockup = ({ imgSrc, altText = "mockup" }: { imgSrc: string, altText?: string }) => {
-  // 에러 체크를 완전히 비활성화하여 엑스박스나 에러화면이 뜨지 않도록 강제합니다.
-  // Base64 번들링이 적용되었으므로 이미지 로드 실패가 발생하지 않습니다.
   return (
-    <div className="relative w-full bg-white flex flex-col font-sans">
-      <img 
-        src={imgSrc} 
-        alt={altText} 
-        className="w-full h-auto block" 
-      />
+    <div className="relative w-full h-full bg-[#0F172A] flex flex-col font-sans overflow-hidden">
+      <div className="w-full text-center py-2 absolute top-0 left-0 right-0 z-10 flex justify-between px-6 text-white/80 text-[10px] font-bold">
+        <span>9:41</span>
+        <div className="flex gap-1">
+          <Signal className="w-3 h-3" />
+          <Wifi className="w-3 h-3" />
+          <Battery className="w-3 h-3" />
+        </div>
+      </div>
+      <div className="w-full h-full relative mt-7 bg-black">
+        <img 
+          src={imgSrc} 
+          alt={altText} 
+          className="absolute inset-0 w-full h-full object-contain object-top block" 
+        />
+      </div>
     </div>
   );
 };
@@ -814,31 +822,31 @@ const StickyFeatures = () => {
       title: "자판기 태그하고 즉시 수령",
       desc: "제휴 식당이나 오피스에 설치된 밀접 자판기에 스마트폰을 태그하세요. 내게 필요한 맞춤 영양제를 즉시 수령할 수 있습니다.",
       icon: <SmartphoneNfc className="w-7 h-7 text-primary" />,
-      mockup: <MockupScan />
+      mockup: <UploadedMockup imgSrc={homeImg} altText="홈 화면" />
     },
     {
       title: "스마트 섭취 기록 & 분석",
       desc: "주·월 단위 리포트와 나의 활동 기록으로 매일매일 조금씩 건강해지는 증거를 확인하세요.",
       icon: <Activity className="w-7 h-7 text-primary" />,
-      mockup: <MockupHome />
+      mockup: <UploadedMockup imgSrc={recordImg} altText="기록 화면" />
     },
     {
       title: "내 주변 밀접 자판기 탐색",
       desc: "위치 기반으로 가까운 제휴 식당의 영양제 자판기를 찾고 픽업 예약을 진행해보세요. 지도 앱 없이도 바로 찾아갈 수 있습니다.",
       icon: <MapPin className="w-7 h-7 text-primary" />,
-      mockup: <MockupMap />
+      mockup: <UploadedMockup imgSrc={searchImg} altText="주변찾기 화면" />
     },
     {
       title: "소셜 & 루틴 메이트",
       desc: "친구, 가족, 직장 동료와 건강한 섭취 루틴을 공유하세요. 칭찬하고 찌르며 혼자가 아닌 함께하는 웰니스를 경험할 수 있습니다.",
       icon: <Users className="w-7 h-7 text-primary" />,
-      mockup: <MockupSocial />
+      mockup: <UploadedMockup imgSrc={socialImg} altText="소셜 화면" />
     },
     {
       title: "밀접 자판기 설치 제안하기",
       desc: "내 동선 주변에 아직 밀접 자판기가 없다면? 자주 방문하는 오피스나 식당에 설치를 제안하고, 필요한 영양을 가장 가까운 곳에서 만나보세요.",
       icon: <User className="w-7 h-7 text-primary" />,
-      mockup: <MockupMyPage />
+      mockup: <UploadedMockup imgSrc={proposeImg} altText="제안하기" />
     }
   ];
 
@@ -855,12 +863,12 @@ const StickyFeatures = () => {
                </div>
                <h3 className="text-2xl font-headline font-bold text-[#1E293B] mb-4 tracking-tight">{f.title}</h3>
                <p className="text-slate-600 text-base leading-relaxed mb-10 keep-all">{f.desc}</p>
-               <div className="w-full max-w-[320px] mx-auto bg-slate-900 rounded-[2.5rem] p-3 shadow-2xl relative border-4 border-slate-800">
+               <div className="w-full max-w-[320px] mx-auto bg-[#1E293B] rounded-[3rem] p-3.5 shadow-2xl relative border-[6px] border-[#0F172A] h-[600px] flex shrink-0">
                  {/* Speaker mock */}
-                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-5 bg-slate-900 rounded-b-xl z-20 flex justify-center items-center">
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-5 bg-[#0F172A] rounded-b-xl z-20 flex justify-center items-center">
                     <div className="w-10 h-1 rounded-full bg-slate-800"></div>
                  </div>
-                 <div className="w-full bg-slate-100 rounded-[2rem] overflow-hidden relative">
+                 <div className="w-full h-full bg-[#0F172A] rounded-[2.25rem] overflow-hidden relative">
                     {f.mockup}
                  </div>
                </div>
@@ -877,21 +885,21 @@ const StickyFeatures = () => {
 
         {/* Sticky Mockup Container (Desktop) */}
         <div className="hidden md:flex w-1/2 h-screen sticky top-0 items-center justify-center pointer-events-none">
-          <div className="w-[300px] lg:w-[320px] bg-slate-900 rounded-[3rem] p-3.5 shadow-2xl relative border-[6px] border-slate-800 ring-1 ring-slate-900/10 pointer-events-auto">
+          <div className="w-[300px] lg:w-[320px] bg-[#1E293B] rounded-[3rem] p-3.5 shadow-[0_32px_64px_rgba(15,23,42,0.2)] relative border-[6px] border-[#0F172A] ring-1 ring-slate-900/10 pointer-events-auto h-[600px] lg:h-[650px]">
             {/* Speaker hole mock */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-xl z-20 flex justify-center items-center">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0F172A] rounded-b-xl z-20 flex justify-center items-center">
                <div className="w-12 h-1 rounded-full bg-slate-800"></div>
             </div>
             
-            <div className="w-full bg-slate-100 rounded-[2.25rem] overflow-hidden relative min-h-[500px] grid">
+            <div className="w-full h-full bg-[#0F172A] rounded-[2.25rem] overflow-hidden relative">
               <AnimatePresence>
                  <motion.div
                    key={activeIndex}
-                   initial={{ opacity: 0 }}
-                   animate={{ opacity: 1 }}
-                   exit={{ opacity: 0 }}
+                   initial={{ opacity: 0, scale: 0.95 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 1.05 }}
                    transition={{ duration: 0.3 }}
-                   className="col-start-1 row-start-1 w-full"
+                   className="absolute inset-0 w-full h-full"
                  >
                     {features[activeIndex].mockup}
                  </motion.div>
