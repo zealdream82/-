@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import SupplementImage from './영양제_봉투의_텍스트를_202604141018.png';
+import RoutineImage from './직장인 건강루틴.png';
 import { 
   Activity, 
   FlaskConical, 
@@ -31,7 +33,22 @@ import {
   Download,
   MessageCircle,
   X,
-  Send
+  Send,
+  MapPin,
+  Gift,
+  Wallet,
+  Flame,
+  Home,
+  Users,
+  Settings,
+  Search,
+  ChevronRight,
+  Circle,
+  Battery,
+  Wifi,
+  Signal,
+  SmartphoneNfc,
+  Image as ImageIcon
 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc } from 'firebase/firestore';
 import { signInWithPopup, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
@@ -397,6 +414,537 @@ function InquiryForm() {
   );
 }
 
+const MockupScan = () => (
+  <div className="relative w-full h-[calc(100%+2rem)] -mt-4 bg-slate-900 flex flex-col font-sans overflow-hidden">
+    {/* Status Bar */}
+    <div className="flex justify-between items-center px-6 py-2 pt-6 text-[12px] font-bold text-white relative z-50">
+      <span>9:41</span>
+      <div className="flex items-center gap-1.5 opacity-90">
+         <Signal className="w-3.5 h-3.5" />
+         <Wifi className="w-3.5 h-3.5" />
+         <Battery className="w-4 h-4" />
+      </div>
+    </div>
+
+    {/* Camera / Scan Overlay */}
+    <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-6 mt-[-10%]">
+       <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent opacity-50"></div>
+       
+       <div className="w-48 h-48 relative flex items-center justify-center mb-10">
+          <div className="absolute inset-0 border-[3px] border-primary/30 rounded-[2rem] animate-ping"></div>
+          <div className="absolute inset-2 border-[3px] border-primary/50 rounded-[1.8rem] animate-pulse"></div>
+          <div className="w-32 h-32 bg-primary flex items-center justify-center rounded-[1.8rem] shadow-[0_0_40px_rgba(16,185,129,0.5)] z-10 relative overflow-hidden">
+             <div className="absolute top-0 left-0 w-full h-1/2 bg-white/20"></div>
+             <SmartphoneNfc className="w-16 h-16 text-white" strokeWidth={1.5} />
+          </div>
+       </div>
+
+       <h2 className="text-[22px] md:text-[24px] font-bold text-white tracking-tight mb-3 font-headline text-center break-keep">자판기에 태그하세요</h2>
+       <p className="text-[#94A3B8] text-[15px] text-center font-medium leading-[1.6] break-keep">스마트폰을 리더기에 가까이 대면<br/>준비된 영양제가 바로 나옵니다</p>
+    </div>
+
+    {/* Bottom Sheet */}
+    <div className="bg-white rounded-t-[28px] p-0 relative z-20 shadow-[0_-20px_40px_rgba(0,0,0,0.1)] transition-transform duration-500 hover:-translate-y-2 flex flex-col items-start w-full text-left overflow-hidden">
+       <div className="p-6 pb-8 w-full flex flex-col items-start px-5">
+           <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-6"></div>
+           <div className="flex items-center gap-4 mb-5 w-full">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                 <Package className="w-6 h-6 text-primary" />
+              </div>
+              <div className="flex flex-col items-start">
+                 <div className="text-[13px] font-bold text-primary mb-1">수령 대기 중</div>
+                 <div className="text-[16px] font-bold text-[#1E293B] tracking-tight text-left break-keep">맞춤 영양제 3회분 (오메가3 외)</div>
+              </div>
+           </div>
+           
+           <img src={SupplementImage} alt="영양제 수령 안내" className="w-full h-[100px] object-cover rounded-xl mb-5 shadow-sm border border-slate-100/50" />
+
+           <div className="bg-[#F8FAFC] rounded-2xl p-4 border border-slate-100 flex justify-between items-center w-full">
+              <span className="text-[14px] font-medium text-slate-500">결제 수단</span>
+              <span className="text-[14px] font-bold text-[#1E293B] flex items-center gap-1.5"><Wallet className="w-4 h-4 text-slate-400"/>밀접 스마트 월렛</span>
+           </div>
+       </div>
+    </div>
+  </div>
+);
+
+const MobileFrame = ({ children, activeTab }: { children: React.ReactNode, activeTab: string }) => (
+  <div className="relative w-full h-[calc(100%+2rem)] -mt-4 bg-slate-50 flex flex-col font-sans">
+    {/* Status Bar */}
+    <div className="flex justify-between items-center px-6 py-2 pt-6 text-[12px] font-bold text-slate-800 bg-white/90 backdrop-blur-sm relative z-50">
+      <span>9:41</span>
+      <div className="flex items-center gap-1.5 opacity-80">
+         <Signal className="w-3.5 h-3.5" />
+         <Wifi className="w-3.5 h-3.5" />
+         <Battery className="w-4 h-4" />
+      </div>
+    </div>
+    
+    {/* Content Area */}
+    <div className="flex-1 overflow-hidden relative">
+      {children}
+    </div>
+
+    {/* Bottom Navigation */}
+    <div className="absolute bottom-4 left-0 w-full bg-white border-t border-slate-100 flex justify-between px-6 py-3 pb-8 z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+      {[
+        { id: 'home', icon: Home, label: '홈' },
+        { id: 'map', icon: MapPin, label: '주변' },
+        { id: 'social', icon: Users, label: '함께' },
+        { id: 'my', icon: User, label: '마이' },
+      ].map((item) => (
+         <div key={item.id} className={`flex flex-col items-center gap-1 ${activeTab === item.id ? 'text-primary' : 'text-slate-400'}`}>
+           <item.icon className="w-6 h-6" strokeWidth={activeTab === item.id ? 2.5 : 2} fill={activeTab === item.id ? 'currentColor' : 'none'} style={activeTab === item.id ? { fillOpacity: 0.15 } : {}} />
+           <span className="text-[10px] font-bold">{item.label}</span>
+         </div>
+      ))}
+    </div>
+  </div>
+);
+
+const MockupHome = () => (
+  <MobileFrame activeTab="home">
+    <div className="p-5 h-full overflow-y-auto pb-28 space-y-6 text-left">
+      <div className="flex justify-between items-center mt-2">
+        <div>
+          <h1 className="text-[22px] font-extrabold text-[#1E293B] tracking-tight">밀접</h1>
+        </div>
+        <Bell className="w-6 h-6 text-slate-500" />
+      </div>
+      
+      <div className="bg-white rounded-[24px] p-5 shadow-sm border border-slate-100 flex flex-col items-center">
+        <h2 className="text-[16px] font-bold text-[#1E293B] mb-5 self-start w-full break-keep">오늘의 영양 달성도</h2>
+        <div className="relative w-40 h-40 mb-5">
+           <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
+             <circle cx="50" cy="50" r="45" fill="none" stroke="#F1F5F9" strokeWidth="8" />
+             <circle 
+               cx="50" cy="50" r="45" fill="none" stroke="#10b981" strokeWidth="8" 
+               strokeDasharray="283" strokeDashoffset="75" strokeLinecap="round" 
+               className="drop-shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all duration-1000" 
+             />
+           </svg>
+           <div className="absolute inset-0 flex flex-col items-center justify-center">
+             <span className="text-[44px] font-extrabold tracking-tighter text-[#1E293B] leading-none mb-1">75<span className="text-xl text-slate-400 font-bold ml-1">%</span></span>
+             <span className="text-[12px] font-medium text-slate-400 tracking-tight">3/4 섭취 완료</span>
+           </div>
+        </div>
+        <div className="w-full bg-[#ECFDF5] text-[#047857] rounded-xl py-3 px-4 flex items-center justify-center gap-2">
+           <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] animate-pulse"></span>
+           <p className="text-[13px] font-bold tracking-tight break-keep">잘 하고 있어요! 1회만 더 섭취하세요.</p>
+        </div>
+      </div>
+
+      <img src={RoutineImage} alt="직장인 건강루틴" className="w-full rounded-[24px] shadow-sm border border-slate-100 object-cover" />
+
+      <div className="flex flex-col items-start w-full">
+        <div className="flex justify-between items-center mb-4 px-1 w-full flex-wrap">
+           <h3 className="text-[17px] font-bold text-[#1E293B] break-keep">맞춤 영양 루틴</h3>
+           <span className="text-[14px] text-primary font-bold">2/3 완료</span>
+        </div>
+        <div className="space-y-3 w-full">
+           {[
+             { name: '활력 마그네슘', time: '아침 식후', done: true },
+             { name: '눈 건조 오메가3', time: '점심 식후', done: true },
+             { name: '수면 유도 테아닌', time: '취침 전', done: false },
+           ].map((item, i) => (
+             <div key={i} className={`flex items-center justify-between p-4 rounded-[20px] transition-all hover:scale-[1.01] ${item.done ? 'bg-slate-50 border border-transparent opacity-70' : 'bg-white shadow-sm border border-slate-100/80 shadow-[0_4px_16px_rgba(0,0,0,0.04)]'}`}>
+               <div className="flex items-center gap-3.5">
+                 <div className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 ${item.done ? 'bg-[#CBD5E1] text-white' : 'bg-primary/10 text-primary'}`}>
+                   {item.done ? <CheckCircle2 className="w-6 h-6" /> : <div className="w-2.5 h-2.5 rounded-full bg-primary/70"></div>}
+                 </div>
+                 <div className="flex flex-col items-start">
+                   <div className={`font-bold text-[15px] tracking-tight leading-snug break-keep ${item.done ? 'text-slate-500 line-through' : 'text-[#1E293B]'}`}>{item.name}</div>
+                   <div className="text-[13px] text-slate-500 font-medium mt-0.5">{item.time}</div>
+                 </div>
+               </div>
+               {!item.done && (
+                 <button className="text-[13px] font-bold text-white bg-primary px-4 py-2 rounded-xl shadow-md shadow-primary/20 hover:bg-primary/90 transition-colors shrink-0 whitespace-nowrap">섭취하기</button>
+               )}
+             </div>
+           ))}
+        </div>
+      </div>
+    </div>
+  </MobileFrame>
+);
+
+const MockupMap = () => (
+  <MobileFrame activeTab="map">
+    <div className="absolute inset-0 bg-[#E8F5E9] overflow-hidden rounded-b-3xl">
+      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20z\' fill=\'%2310b981\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")' }}></div>
+      
+      <div className="absolute top-6 left-5 right-5 flex z-10">
+        <div className="w-full bg-white h-[52px] rounded-2xl shadow-[0_8px_24px_rgba(16,185,129,0.12)] flex items-center px-4 gap-3 text-slate-400 border border-slate-100/50 text-left">
+          <Search className="w-[22px] h-[22px] text-slate-400" />
+          <span className="text-[15px] font-medium text-slate-400 break-keep">강남역 밀접 자판기 검색</span>
+        </div>
+      </div>
+
+      <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-16 h-16 flex flex-col items-center">
+        <div className="w-16 h-16 bg-white rounded-full shadow-xl flex items-center justify-center relative z-20 shrink-0">
+          <MapPin className="w-8 h-8 text-primary" />
+          <div className="absolute -bottom-2.5 w-3.5 h-3.5 bg-primary rounded-full shadow-[0_0_12px_rgba(16,185,129,0.8)] border-[2.5px] border-white"></div>
+        </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 bg-primary/20 rounded-full animate-ping z-10"></div>
+      </div>
+      
+      {/* Another pin far away */}
+      <div className="absolute top-[30%] left-[20%] opacity-60 scale-75">
+        <div className="w-14 h-14 bg-white rounded-full shadow-lg flex items-center justify-center relative">
+          <MapPin className="w-6 h-6 text-slate-400" />
+        </div>
+      </div>
+
+      <div className="absolute bottom-[92px] left-4 right-4 z-20">
+        <div className="bg-white rounded-[28px] p-6 shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-slate-100 flex flex-col text-left">
+           <div className="flex justify-between items-start mb-5">
+             <div className="flex flex-col items-start">
+               <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-[#ECFDF5] text-[#047857] text-[11px] font-bold px-2.5 py-1 rounded-md flex items-center gap-1 leading-none"><Zap className="w-3.5 h-3.5"/>운영중</span>
+                  <span className="bg-slate-100 text-slate-500 text-[11px] font-bold px-2.5 py-1 rounded-md leading-none">직영점</span>
+               </div>
+               <h3 className="text-[20px] font-bold text-[#1E293B] leading-tight tracking-tight mb-1">샐러디 강남점</h3>
+               <p className="text-[14px] text-slate-500 break-keep">서울 서초구 강남대로 123</p>
+             </div>
+             <div className="bg-[#F8FAFC] px-3.5 py-2.5 rounded-2xl text-center border border-slate-100">
+                <span className="block text-[12px] text-slate-500 font-medium mb-1">거리</span>
+                <span className="block text-[16px] font-extrabold text-[#059669]">150m</span>
+             </div>
+           </div>
+           
+           <div className="w-full h-[1px] bg-slate-100 mb-5"></div>
+           
+           <div className="flex items-center justify-between w-full">
+             <div className="flex flex-col items-start">
+                <p className="text-[13px] font-bold text-slate-500 mb-2">현재 재고 (수령 가능)</p>
+                <div className="flex -space-x-2.5">
+                   <div className="w-9 h-9 rounded-full border-2 border-white bg-[#EFF6FF] flex items-center justify-center text-[15px] shadow-sm relative z-30">💊</div>
+                   <div className="w-9 h-9 rounded-full border-2 border-white bg-[#ECFDF5] flex items-center justify-center text-[15px] shadow-sm relative z-20">🌿</div>
+                   <div className="w-9 h-9 rounded-full border-2 border-white bg-[#FFF7ED] flex items-center justify-center text-[15px] shadow-sm relative z-10">🍎</div>
+                </div>
+             </div>
+             <button className="bg-[#1E293B] text-white rounded-[16px] px-6 py-4 text-[15px] font-bold shadow-lg shadow-slate-900/20 hover:bg-slate-800 transition-colors flex items-center gap-1.5 break-keep">
+               픽업 예약 <ArrowRight className="w-4 h-4 opacity-80"/>
+             </button>
+           </div>
+        </div>
+      </div>
+    </div>
+  </MobileFrame>
+);
+
+const MockupSocial = () => (
+  <MobileFrame activeTab="social">
+    <div className="p-5 h-full overflow-y-auto pb-28 bg-[#F8FAFC] text-left">
+       <div className="flex justify-between items-center mb-6 mt-2">
+         <h2 className="text-[20px] font-bold text-[#1E293B] tracking-tight">건강한 친구들</h2>
+         <Search className="w-6 h-6 text-slate-500" />
+       </div>
+       
+       <div className="flex gap-4 overflow-x-hidden mb-8 px-1 pb-2">
+         {['나', '김엄마', '박철수', '이민수', '최영희'].map((name, i) => (
+            <div key={i} className="flex flex-col items-center gap-2.5 min-w-max cursor-pointer">
+               <div className={`w-16 h-16 rounded-full border-[3px] p-0.5 ${i === 0 ? 'border-primary' : i === 1 ? 'border-[#EA580C]' : 'border-slate-200'}`}>
+                  <div className={`w-full h-full rounded-full overflow-hidden flex justify-center items-center ${i === 0 ? 'bg-primary/10' : 'bg-slate-200'}`}>
+                     {/* Random cute avatars based on iteration */}
+                     <span className="text-[26px]">{['😎','👩','🧑','👱','👧'][i]}</span>
+                  </div>
+               </div>
+               <span className="text-[13px] font-bold text-slate-600 tracking-tight">{name}</span>
+            </div>
+         ))}
+       </div>
+
+       <div className="space-y-4 w-full">
+         {[
+           { name: '김엄마', badge: '가족', action: '활력 마그네슘 섭취', time: '방금 전', msg: '오늘도 건강 챙겼어요! 다들 화이팅', emoji: '👩' },
+           { name: '박철수', badge: '친구', action: '종합 비타민 섭취', time: '2시간 전', msg: '점심 먹고 바로 완료입니다 ㅎㅎ', emoji: '🧑' },
+           { name: '이민수', badge: '동료', action: '연속 섭취 7일 달성', time: '어제', msg: '일주일째 완벽한 루틴 달성 중 🔥', emoji: '👱' },
+         ].map((feed, i) => (
+           <div key={i} className="bg-white rounded-[24px] p-5 shadow-sm border border-slate-100/80 hover:shadow-md transition-shadow flex flex-col items-start w-full">
+             <div className="flex justify-between items-start mb-3 w-full">
+                <div className="flex items-center gap-3.5">
+                   <div className="w-11 h-11 rounded-full bg-[#F1F5F9] flex items-center justify-center text-[22px] shrink-0">{feed.emoji}</div>
+                   <div className="flex flex-col items-start">
+                     <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[15px] font-bold text-[#1E293B] leading-none tracking-tight">{feed.name}</span>
+                        <span className="bg-slate-100 text-slate-500 font-bold text-[11px] px-1.5 py-[2px] rounded-sm leading-none">{feed.badge}</span>
+                     </div>
+                     <div className="text-[13px] font-medium text-slate-400 flex items-center gap-1.5 break-keep">
+                        <span className="text-primary font-bold">{feed.action}</span> • {feed.time}
+                     </div>
+                   </div>
+                </div>
+                <div className="w-6 h-6 flex justify-center items-center opacity-40 shrink-0">
+                  <div className="flex flex-col gap-[3px]">
+                     <div className="w-1 h-1 rounded-full bg-slate-900"></div>
+                     <div className="w-1 h-1 rounded-full bg-slate-900"></div>
+                     <div className="w-1 h-1 rounded-full bg-slate-900"></div>
+                  </div>
+                </div>
+             </div>
+             <div className="bg-[#F8FAFC] rounded-[16px] px-4 py-3 text-[14px] leading-relaxed font-medium text-slate-700 mb-4 ml-[58px] border border-slate-100 break-keep self-stretch text-left">
+               "{feed.msg}"
+             </div>
+             <div className="flex gap-2.5 pl-[58px] w-[calc(100%-10px)]">
+                <button className="flex-1 bg-white border border-slate-200 rounded-[14px] py-2.5 flex justify-center items-center gap-1.5 text-[13px] font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+                  👏 칭찬하기
+                </button>
+                <button className="flex-1 bg-[#FFF4ED] text-[#EA580C] rounded-[14px] py-2.5 flex justify-center items-center gap-1.5 text-[13px] font-bold hover:bg-[#FFEDD5] transition-colors">
+                  <Flame className="w-4 h-4" /> 콕 찌르기
+                </button>
+             </div>
+           </div>
+         ))}
+       </div>
+    </div>
+  </MobileFrame>
+);
+
+const MockupMyPage = () => (
+  <MobileFrame activeTab="my">
+    <div className="p-5 h-full overflow-y-auto pb-28 bg-white text-left break-keep">
+       <div className="flex justify-between items-center mb-7 mt-2">
+         <h2 className="text-[22px] font-bold text-[#1E293B] tracking-tight">마이페이지</h2>
+         <Settings className="w-6 h-6 text-[#1E293B]" />
+       </div>
+
+       <div className="flex items-center gap-4.5 mb-9">
+         <div className="w-[72px] h-[72px] rounded-full bg-slate-100 ring-4 ring-slate-50 overflow-hidden flex justify-center items-center text-[36px] shrink-0">
+            😎
+         </div>
+         <div className="flex flex-col items-start ml-2 w-full">
+            <h3 className="text-[20px] font-bold text-[#1E293B] tracking-tight">김밀접님</h3>
+            <div className="flex items-center gap-2 mt-1.5">
+               <span className="text-[11px] bg-[#FEE2E2] text-[#DC2626] font-bold px-2 py-0.5 rounded-sm">카카오 연동</span>
+               <span className="text-[13px] text-slate-500 font-medium tracking-tight">user123@kakao.com</span>
+            </div>
+         </div>
+       </div>
+
+       <div className="bg-[#1E293B] rounded-[28px] p-6 text-white mb-8 shadow-xl shadow-slate-900/10 flex flex-col items-start w-full relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+          <div className="flex justify-between items-center w-full mb-5 relative z-10">
+             <span className="text-[13px] font-semibold text-slate-300 tracking-tight">밀접 스마트 월렛</span>
+             <button className="bg-white/10 hover:bg-white/20 px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-colors">명세서</button>
+          </div>
+          <div className="text-[32px] font-bold mb-7 tracking-tight leading-none text-left w-full relative z-10">
+             48,800<span className="text-[20px] font-semibold ml-1 text-slate-300">P</span>
+          </div>
+          <div className="flex gap-3 w-full relative z-10">
+             <button className="flex-1 bg-primary text-white py-3.5 rounded-[16px] text-[15px] font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">포인트 충전</button>
+             <button className="flex-1 bg-white/15 text-white py-3.5 rounded-[16px] text-[15px] font-bold hover:bg-white/20 transition-colors flex items-center justify-center gap-1.5"><Gift className="w-[18px] h-[18px]"/> 선물 쿠폰</button>
+          </div>
+       </div>
+
+       <div className="space-y-4 mb-8 w-full flex flex-col items-start">
+          <h4 className="text-[17px] font-bold text-[#1E293B] mb-1 px-1">나의 웰니스 지표</h4>
+          <div className="bg-[#F8FAFC] rounded-[24px] p-6 border border-slate-100 w-full flex flex-col text-left">
+             <div className="flex justify-between items-center mb-6 w-full">
+                <span className="text-[15px] font-bold text-slate-800">이번 달 섭취 달성률</span>
+                <span className="bg-primary/10 text-primary px-2.5 py-1 rounded-md text-[12px] font-bold">최고 기록 갱신 중!</span>
+             </div>
+             {/* Mini bar chart */}
+             <div className="flex items-end h-[84px] gap-2.5 mt-auto w-full">
+                {[20, 60, 40, 80, 50, 70, 100].map((h, i) => (
+                  <div key={i} className="flex-1 relative flex items-end justify-center" style={{ height: '100%' }}>
+                     <div className={`w-full max-w-[12px] rounded-full transition-all duration-700 ${i === 6 ? 'bg-primary' : 'bg-[#CBD5E1]'}`} style={{ height: `${h}%` }}></div>
+                     <span className={`absolute -bottom-6 text-[12px] font-bold ${i === 6 ? 'text-primary' : 'text-slate-400'}`}>{['월','화','수','목','금','토','일'][i]}</span>
+                  </div>
+                ))}
+             </div>
+             <div className="mt-10 pt-5 border-t border-slate-200/80 flex w-full">
+                <div className="flex-1 flex flex-col items-start pl-1">
+                  <div className="text-[12px] text-slate-500 font-bold mb-1">총 섭취 횟수</div>
+                  <div className="text-[20px] font-bold text-[#1E293B] leading-none">16<span className="text-[14px] font-medium text-slate-400 ml-1">회</span></div>
+                </div>
+                <div className="w-[1px] bg-slate-200 h-10 self-center"></div>
+                <div className="flex-1 flex flex-col items-start pl-5">
+                  <div className="text-[12px] text-slate-500 font-bold mb-1">연속 달성일</div>
+                  <div className="text-[20px] font-bold text-[#EA580C] leading-none">7<span className="text-[14px] font-medium text-slate-400 ml-1">일 🔥</span></div>
+                </div>
+             </div>
+          </div>
+       </div>
+       
+       <div className="space-y-1 w-full flex flex-col">
+          {[
+            { title: '구독 플랜 관리', icon: Package },
+            { title: '밀접 결제 수단 등록', icon: Wallet },
+            { title: '건강 정보 알림 설정', icon: Bell },
+            { title: '1:1 고객 센터 문의', icon: MessageCircle }
+          ].map((item, i) => (
+             <div key={i} className="flex items-center justify-between py-4.5 px-3 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer group w-full">
+                <div className="flex items-center gap-3.5">
+                   <item.icon className="w-[20px] h-[20px] text-slate-400 group-hover:text-primary transition-colors" />
+                   <span className="text-[15px] font-semibold text-slate-700">{item.title}</span>
+                </div>
+                <ChevronRight className="w-5 h-5 text-slate-300" />
+             </div>
+          ))}
+       </div>
+    </div>
+  </MobileFrame>
+);
+
+const UploadedMockup = ({ filename }: { filename: string }) => {
+  const [hasError, setHasError] = useState(false);
+  const src = `/${filename}`;
+
+  return (
+    <div className="relative w-full bg-white flex flex-col font-sans">
+      {hasError ? (
+        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center aspect-[9/16]">
+          <div className="w-16 h-16 bg-slate-200 rounded-2xl flex items-center justify-center mb-4 text-slate-400 border border-slate-300">
+             <ImageIcon className="w-8 h-8" />
+          </div>
+          <p className="text-[15px] font-bold text-slate-700 mb-3">UI 이미지를 업로드해주세요</p>
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm w-full">
+            <p className="text-[13px] text-slate-500 break-keep leading-relaxed text-left">
+              1. 좌측 파일 탐색기에서 <span className="font-bold text-slate-700">public</span> 폴더 열기<br/>
+              2. 이미지 이름을 <span className="font-mono text-primary font-bold bg-primary/10 px-1 py-0.5 rounded">{filename}</span> 으로 변경 후 업로드
+            </p>
+          </div>
+        </div>
+      ) : (
+        <img 
+          src={src} 
+          alt={filename} 
+          className="w-full h-auto block" 
+          onError={() => setHasError(true)} 
+        />
+      )}
+    </div>
+  );
+};
+
+const StickyFeatures = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const features = [
+    {
+      title: "자판기 태그하고 즉시 수령",
+      desc: "제휴 식당이나 오피스에 설치된 밀접 자판기에 스마트폰을 태그하세요. 내게 필요한 맞춤 영양제를 즉시 수령할 수 있습니다.",
+      icon: <SmartphoneNfc className="w-7 h-7 text-primary" />,
+      mockup: <UploadedMockup filename="밀접 앱 - 홈(김밀접).png" />
+    },
+    {
+      title: "스마트 섭취 기록 & 분석",
+      desc: "주·월 단위 리포트와 나의 활동 기록으로 매일매일 조금씩 건강해지는 증거를 확인하세요.",
+      icon: <Activity className="w-7 h-7 text-primary" />,
+      mockup: <UploadedMockup filename="밀접 앱 - 마이페이지 - 기록.png" />
+    },
+    {
+      title: "내 주변 밀접 자판기 탐색",
+      desc: "위치 기반으로 가까운 제휴 식당의 영양제 자판기를 찾고 픽업 예약을 진행해보세요. 지도 앱 없이도 바로 찾아갈 수 있습니다.",
+      icon: <MapPin className="w-7 h-7 text-primary" />,
+      mockup: <UploadedMockup filename="밀접 앱 - 주변찾기.jpeg" />
+    },
+    {
+      title: "소셜 & 루틴 메이트",
+      desc: "친구, 가족, 직장 동료와 건강한 섭취 루틴을 공유하세요. 칭찬하고 찌르며 혼자가 아닌 함께하는 웰니스를 경험할 수 있습니다.",
+      icon: <Users className="w-7 h-7 text-primary" />,
+      mockup: <UploadedMockup filename="밀접 앱 - 함께.jpeg" />
+    },
+    {
+      title: "밀접 자판기 설치 제안하기",
+      desc: "내 동선 주변에 아직 밀접 자판기가 없다면? 자주 방문하는 오피스나 식당에 설치를 제안하고, 필요한 영양을 가장 가까운 곳에서 만나보세요.",
+      icon: <User className="w-7 h-7 text-primary" />,
+      mockup: <UploadedMockup filename="밀접 앱 - 주변찾기-설치 장소 추천.jpeg" />
+    }
+  ];
+
+  return (
+    <section className="bg-white relative pb-20" id="features">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row">
+        
+        {/* Mobile View (Below md) */}
+        <div className="block md:hidden">
+          {features.map((f, i) => (
+             <div key={i} className="py-16 px-6 border-b border-slate-100 last:border-0 relative">
+               <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-fixed rounded-2xl mb-6 shadow-sm border border-primary/10">
+                 {f.icon}
+               </div>
+               <h3 className="text-2xl font-headline font-bold text-[#1E293B] mb-4 tracking-tight">{f.title}</h3>
+               <p className="text-slate-600 text-base leading-relaxed mb-10 keep-all">{f.desc}</p>
+               <div className="w-full max-w-[320px] mx-auto bg-slate-900 rounded-[2.5rem] p-3 shadow-2xl relative border-4 border-slate-800">
+                 {/* Speaker mock */}
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-5 bg-slate-900 rounded-b-xl z-20 flex justify-center items-center">
+                    <div className="w-10 h-1 rounded-full bg-slate-800"></div>
+                 </div>
+                 <div className="w-full bg-slate-100 rounded-[2rem] overflow-hidden relative">
+                    {f.mockup}
+                 </div>
+               </div>
+             </div>
+          ))}
+        </div>
+
+        {/* Desktop View (md and above) */}
+        <div className="hidden md:block w-1/2 relative pb-[30vh]">
+          {features.map((f, i) => (
+            <FeatureBlock key={i} feature={f} index={i} onVisible={setActiveIndex} />
+          ))}
+        </div>
+
+        {/* Sticky Mockup Container (Desktop) */}
+        <div className="hidden md:flex w-1/2 h-screen sticky top-0 items-center justify-center pointer-events-none">
+          <div className="w-[300px] lg:w-[320px] bg-slate-900 rounded-[3rem] p-3.5 shadow-2xl relative border-[6px] border-slate-800 ring-1 ring-slate-900/10 pointer-events-auto">
+            {/* Speaker hole mock */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-xl z-20 flex justify-center items-center">
+               <div className="w-12 h-1 rounded-full bg-slate-800"></div>
+            </div>
+            
+            <div className="w-full bg-slate-100 rounded-[2.25rem] overflow-hidden relative min-h-[500px] grid">
+              <AnimatePresence>
+                 <motion.div
+                   key={activeIndex}
+                   initial={{ opacity: 0 }}
+                   animate={{ opacity: 1 }}
+                   exit={{ opacity: 0 }}
+                   transition={{ duration: 0.3 }}
+                   className="col-start-1 row-start-1 w-full"
+                 >
+                    {features[activeIndex].mockup}
+                 </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const FeatureBlock = ({ feature, index, onVisible }: any) => {
+  const ref = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+         if (entry.isIntersecting) {
+            onVisible(index);
+         }
+      },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [index, onVisible]);
+
+  return (
+    <div ref={ref} className="min-h-screen flex flex-col justify-center py-20 px-8 lg:px-12">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-fixed rounded-2xl mb-8 shadow-sm border border-primary/10 transition-transform hover:scale-105 duration-300">
+        {feature.icon}
+      </div>
+      <h3 className="text-3xl md:text-5xl font-headline font-extrabold text-[#1E293B] mb-6 tracking-tight keep-all">{feature.title}</h3>
+      <p className="text-slate-600 text-lg md:text-xl leading-relaxed max-w-md keep-all font-body">
+        {feature.desc}
+      </p>
+    </div>
+  );
+}
+
 export default function App() {
   const [quizStep, setQuizStep] = useState(1);
   const [gender, setGender] = useState<string | null>(null);
@@ -621,70 +1169,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* Features */}
-        <section className="py-24" id="service">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="mb-16">
-              <h2 className="text-3xl md:text-5xl font-headline font-extrabold text-primary tracking-tighter mb-4">Precision Wellness</h2>
-              <p className="text-on-surface-variant max-w-2xl font-body keep-all">과학적 정밀함과 일상의 미학을 결합한 밀접만의 혁신적인 경험입니다.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Feature 1 */}
-              <div className="group bg-white/80 backdrop-blur-sm p-10 rounded-3xl hover:bg-white hover:shadow-[0_12px_48px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col items-start gap-8 border border-transparent hover:border-outline-variant/15">
-                <div className="w-16 h-16 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary">
-                  <FlaskConical className="w-8 h-8" />
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-headline font-bold text-primary keep-all">맞춤형 영양 설계</h3>
-                  <p className="text-on-surface-variant leading-relaxed keep-all">
-                    빅데이터 기반의 알고리즘이 당신의 라이프스타일과 생체 데이터를 분석하여 내 몸에 꼭 필요한 성분만 큐레이션합니다.
-                  </p>
-                  <div className="pt-2">
-                    <span className="inline-flex items-center gap-1 text-secondary font-bold text-sm">
-                      Personalized Curation <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Feature 2 */}
-              <div className="group bg-white/80 backdrop-blur-sm p-10 rounded-3xl hover:bg-white hover:shadow-[0_12px_48px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col items-start gap-8 border border-transparent hover:border-outline-variant/15">
-                <div className="w-16 h-16 rounded-2xl bg-secondary-container/30 flex items-center justify-center text-secondary">
-                  <ShieldCheck className="w-8 h-8" />
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-headline font-bold text-primary keep-all">타협 없는 위생과 안전</h3>
-                  <p className="text-on-surface-variant leading-relaxed keep-all">
-                    제약 수준의 개별 진공 포장 시스템을 도입하여 가장 깨끗한 상태 그대로, 변질 걱정 없는 안전함을 제공합니다.
-                  </p>
-                  <div className="pt-2">
-                    <span className="inline-flex items-center gap-1 text-secondary font-bold text-sm">
-                      Clinical Hygiene <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="group bg-white/80 backdrop-blur-sm p-10 rounded-3xl hover:bg-white hover:shadow-[0_12px_48px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col items-start gap-8 border border-transparent hover:border-outline-variant/15">
-                <div className="w-16 h-16 rounded-2xl bg-tertiary-fixed flex items-center justify-center text-primary">
-                  <Navigation className="w-8 h-8" />
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-headline font-bold text-primary keep-all">끊김 없는 O2O 경험</h3>
-                  <p className="text-on-surface-variant leading-relaxed keep-all">
-                    앱에서 분석하고 근거리 제휴 식당과 호텔에서 즉시 픽업하는 스마트 매니지먼트. 일상과 영양을 하나로 연결합니다.
-                  </p>
-                  <div className="pt-2">
-                    <span className="inline-flex items-center gap-1 text-secondary font-bold text-sm">
-                      Instant Pickup <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <StickyFeatures />
 
         {/* Values */}
         <section className="py-24 relative" id="values">
