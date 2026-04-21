@@ -814,31 +814,31 @@ const StickyFeatures = () => {
       title: "자판기 태그하고 즉시 수령",
       desc: "제휴 식당이나 오피스에 설치된 밀접 자판기에 스마트폰을 태그하세요. 내게 필요한 맞춤 영양제를 즉시 수령할 수 있습니다.",
       icon: <SmartphoneNfc className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup imgSrc={homeImg} altText="홈 화면" />
+      mockup: <MockupScan />
     },
     {
       title: "스마트 섭취 기록 & 분석",
       desc: "주·월 단위 리포트와 나의 활동 기록으로 매일매일 조금씩 건강해지는 증거를 확인하세요.",
       icon: <Activity className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup imgSrc={recordImg} altText="기록 화면" />
+      mockup: <MockupHome />
     },
     {
       title: "내 주변 밀접 자판기 탐색",
       desc: "위치 기반으로 가까운 제휴 식당의 영양제 자판기를 찾고 픽업 예약을 진행해보세요. 지도 앱 없이도 바로 찾아갈 수 있습니다.",
       icon: <MapPin className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup imgSrc={searchImg} altText="주변찾기 화면" />
+      mockup: <MockupMap />
     },
     {
       title: "소셜 & 루틴 메이트",
       desc: "친구, 가족, 직장 동료와 건강한 섭취 루틴을 공유하세요. 칭찬하고 찌르며 혼자가 아닌 함께하는 웰니스를 경험할 수 있습니다.",
       icon: <Users className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup imgSrc={socialImg} altText="소셜 화면" />
+      mockup: <MockupSocial />
     },
     {
       title: "밀접 자판기 설치 제안하기",
       desc: "내 동선 주변에 아직 밀접 자판기가 없다면? 자주 방문하는 오피스나 식당에 설치를 제안하고, 필요한 영양을 가장 가까운 곳에서 만나보세요.",
       icon: <User className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup imgSrc={proposeImg} altText="제안하기" />
+      mockup: <MockupMyPage />
     }
   ];
 
