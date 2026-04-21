@@ -795,22 +795,12 @@ const MockupMyPage = () => (
 
 const UploadedMockup = ({ imgSrc, altText = "mockup" }: { imgSrc: string, altText?: string }) => {
   return (
-    <div className="relative w-full h-full bg-[#0F172A] flex flex-col font-sans overflow-hidden">
-      <div className="w-full text-center py-2 absolute top-0 left-0 right-0 z-10 flex justify-between px-6 text-white/80 text-[10px] font-bold">
-        <span>9:41</span>
-        <div className="flex gap-1">
-          <Signal className="w-3 h-3" />
-          <Wifi className="w-3 h-3" />
-          <Battery className="w-3 h-3" />
-        </div>
-      </div>
-      <div className="w-full h-full relative mt-7 bg-black">
-        <img 
-          src={imgSrc} 
-          alt={altText} 
-          className="absolute inset-0 w-full h-full object-contain object-top block" 
-        />
-      </div>
+    <div className="relative w-full h-full bg-black flex items-center justify-center overflow-hidden">
+      <img 
+        src={imgSrc} 
+        alt={altText} 
+        className="w-full h-auto block" 
+      />
     </div>
   );
 };
