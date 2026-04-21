@@ -848,18 +848,20 @@ const StickyFeatures = () => {
         {/* Mobile View (Below md) */}
         <div className="block md:hidden">
           {features.map((f, i) => (
-             <div key={i} className="py-16 px-6 border-b border-slate-100 last:border-0 relative">
-               <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-fixed rounded-2xl mb-6 shadow-sm border border-primary/10">
-                 {f.icon}
-               </div>
-               <h3 className="text-2xl font-headline font-bold text-[#1E293B] mb-4 tracking-tight">{f.title}</h3>
-               <p className="text-slate-600 text-base leading-relaxed mb-10 keep-all">{f.desc}</p>
-               <div className="w-full max-w-[320px] mx-auto bg-[#1E293B] rounded-[3rem] p-3.5 shadow-2xl relative border-[6px] border-[#0F172A] h-[600px] flex shrink-0">
-                 {/* Speaker mock */}
-                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-5 bg-[#0F172A] rounded-b-xl z-20 flex justify-center items-center">
-                    <div className="w-10 h-1 rounded-full bg-slate-800"></div>
+             <div key={i} className="py-8 px-5 border-b border-slate-100 last:border-0 relative">
+               <div className="flex items-center gap-4 mb-3">
+                 <div className="inline-flex items-center justify-center w-10 h-10 bg-primary-fixed rounded-xl shadow-sm border border-primary/10 shrink-0 [&>svg]:w-5 [&>svg]:h-5">
+                   {f.icon}
                  </div>
-                 <div className="w-full h-full bg-[#0F172A] rounded-[2.25rem] overflow-hidden relative">
+                 <h3 className="text-lg font-headline font-bold text-[#1E293B] tracking-tight m-0">{f.title}</h3>
+               </div>
+               <p className="text-slate-600 text-sm leading-snug mb-5 keep-all">{f.desc}</p>
+               <div className="w-full max-w-[240px] mx-auto bg-[#1E293B] rounded-[2rem] p-2 shadow-2xl relative border-[3px] border-[#0F172A] h-[480px] flex shrink-0">
+                 {/* Speaker mock */}
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-3 bg-[#0F172A] rounded-b-md z-20 flex justify-center items-center">
+                    <div className="w-6 h-0.5 rounded-full bg-slate-800"></div>
+                 </div>
+                 <div className="w-full h-full bg-[#0F172A] rounded-[1.75rem] overflow-hidden relative">
                     {f.mockup}
                  </div>
                </div>
@@ -1159,91 +1161,91 @@ export default function App() {
         <StickyFeatures />
 
         {/* Values */}
-        <section className="py-24 relative" id="values">
+        <section className="py-10 md:py-24 relative" id="values">
           {/* Subtle background decoration for values section */}
           <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
-            <div className="absolute top-40 -left-40 w-96 h-96 bg-slate-200/40 rounded-full blur-3xl"></div>
+            <div className="absolute -top-20 -right-20 w-64 h-64 md:-top-40 md:-right-40 md:w-96 md:h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+            <div className="absolute top-20 -left-20 w-64 h-64 md:top-40 md:-left-40 md:w-96 md:h-96 bg-slate-200/40 rounded-full blur-3xl"></div>
           </div>
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="mb-16 md:text-center">
-              <h2 className="text-3xl md:text-5xl font-headline font-extrabold text-primary tracking-tighter mb-4">Core Values</h2>
-              <p className="text-on-surface-variant max-w-2xl md:mx-auto font-body keep-all text-lg">밀접이 추구하는 네 가지 핵심 가치입니다.</p>
+          <div className="max-w-7xl mx-auto px-5 md:px-8">
+            <div className="mb-6 md:mb-16 md:text-center">
+              <h2 className="text-2xl md:text-5xl font-headline font-extrabold text-primary tracking-tighter mb-1 md:mb-4">Core Values</h2>
+              <p className="text-on-surface-variant max-w-2xl md:mx-auto font-body keep-all text-xs md:text-lg">밀접이 추구하는 네 가지 핵심 가치입니다.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
               {/* Value 1 */}
-              <div className="group bg-white p-10 md:p-12 rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[320px]">
+              <div className="group bg-white p-4 md:p-12 rounded-[1.25rem] md:rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-3 md:gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[160px] md:min-h-[320px]">
                 <img 
                   src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" 
                   alt="Space & Vitality" 
                   className="absolute inset-0 w-full h-full object-cover opacity-[0.06] group-hover:opacity-[0.12] group-hover:scale-105 transition-all duration-1000 grayscale" 
                   referrerPolicy="no-referrer" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent"></div>
                 
-                <div className="relative z-10 w-16 h-16 rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
-                  <Map className="w-8 h-8" />
+                <div className="relative z-10 w-9 h-9 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm shrink-0">
+                  <Map className="w-5 h-5 md:w-8 md:h-8" />
                 </div>
-                <div className="relative z-10 space-y-4 mt-auto">
-                  <h3 className="text-2xl md:text-3xl font-headline font-bold text-primary tracking-tight keep-all">Space & Vitality</h3>
-                  <p className="text-on-surface-variant text-lg leading-relaxed keep-all">우리는 당신이 식사하는 모든 공간이 건강의 거점이 되는 미래를 만듭니다.</p>
+                <div className="relative z-10 space-y-1.5 md:space-y-4 mt-auto">
+                  <h3 className="text-sm md:text-3xl font-headline font-bold text-primary tracking-tight keep-all leading-tight">Space &<br className="md:hidden" /> Vitality</h3>
+                  <p className="text-on-surface-variant text-[11px] md:text-lg leading-snug md:leading-relaxed keep-all">식사하는 모든 공간 건강의 거점으로.</p>
                 </div>
               </div>
               
               {/* Value 2 */}
-              <div className="group bg-white p-10 md:p-12 rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[320px]">
+              <div className="group bg-white p-4 md:p-12 rounded-[1.25rem] md:rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-3 md:gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[160px] md:min-h-[320px]">
                 <img 
                   src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800" 
                   alt="Pure Identity" 
                   className="absolute inset-0 w-full h-full object-cover opacity-[0.06] group-hover:opacity-[0.12] group-hover:scale-105 transition-all duration-1000 grayscale" 
                   referrerPolicy="no-referrer" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent"></div>
                 
-                <div className="relative z-10 w-16 h-16 rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-secondary group-hover:text-white transition-all duration-500 shadow-sm">
-                  <Leaf className="w-8 h-8" />
+                <div className="relative z-10 w-9 h-9 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-secondary group-hover:text-white transition-all duration-500 shadow-sm shrink-0">
+                  <Leaf className="w-5 h-5 md:w-8 md:h-8" />
                 </div>
-                <div className="relative z-10 space-y-4 mt-auto">
-                  <h3 className="text-2xl md:text-3xl font-headline font-bold text-primary tracking-tight keep-all">Pure Identity</h3>
-                  <p className="text-on-surface-variant text-lg leading-relaxed keep-all">첨가물을 최소화한 순수 성분으로 신체의 본연의 밸런스를 되찾아줍니다.</p>
+                <div className="relative z-10 space-y-1.5 md:space-y-4 mt-auto">
+                  <h3 className="text-sm md:text-3xl font-headline font-bold text-primary tracking-tight keep-all leading-tight">Pure<br className="md:hidden" /> Identity</h3>
+                  <p className="text-on-surface-variant text-[11px] md:text-lg leading-snug md:leading-relaxed keep-all">첨가물 최소화 순수 성분.</p>
                 </div>
               </div>
               
               {/* Value 3 */}
-              <div className="group bg-white p-10 md:p-12 rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[320px]">
+              <div className="group bg-white p-4 md:p-12 rounded-[1.25rem] md:rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-3 md:gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[160px] md:min-h-[320px]">
                 <img 
                   src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800" 
                   alt="Trust Policy" 
                   className="absolute inset-0 w-full h-full object-cover opacity-[0.06] group-hover:opacity-[0.12] group-hover:scale-105 transition-all duration-1000 grayscale" 
                   referrerPolicy="no-referrer" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent"></div>
                 
-                <div className="relative z-10 w-16 h-16 rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
-                  <BadgeCheck className="w-8 h-8" />
+                <div className="relative z-10 w-9 h-9 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm shrink-0">
+                  <BadgeCheck className="w-5 h-5 md:w-8 md:h-8" />
                 </div>
-                <div className="relative z-10 space-y-4 mt-auto">
-                  <h3 className="text-2xl md:text-3xl font-headline font-bold text-primary tracking-tight keep-all">Trust Policy</h3>
-                  <p className="text-on-surface-variant text-lg leading-relaxed keep-all">모든 성분과 배합비는 임상 데이터를 바탕으로 전문 영양사의 검수를 거칩니다.</p>
+                <div className="relative z-10 space-y-1.5 md:space-y-4 mt-auto">
+                  <h3 className="text-sm md:text-3xl font-headline font-bold text-primary tracking-tight keep-all leading-tight">Trust<br className="md:hidden" /> Policy</h3>
+                  <p className="text-on-surface-variant text-[11px] md:text-lg leading-snug md:leading-relaxed keep-all">임상 데이터 기반 전문 영양사 검수.</p>
                 </div>
               </div>
               
               {/* Value 4 */}
-              <div className="group bg-white p-10 md:p-12 rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[320px]">
+              <div className="group bg-white p-4 md:p-12 rounded-[1.25rem] md:rounded-[2rem] hover:shadow-[0_24px_64px_rgba(26,54,93,0.08)] transition-all duration-500 flex flex-col gap-3 md:gap-8 border border-outline-variant/20 relative overflow-hidden min-h-[160px] md:min-h-[320px]">
                 <img 
                   src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800" 
                   alt="Individual Sealing" 
                   className="absolute inset-0 w-full h-full object-cover opacity-[0.06] group-hover:opacity-[0.12] group-hover:scale-105 transition-all duration-1000 grayscale" 
                   referrerPolicy="no-referrer" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent"></div>
                 
-                <div className="relative z-10 w-16 h-16 rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
-                  <Package className="w-8 h-8" />
+                <div className="relative z-10 w-9 h-9 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-surface-container-low flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm shrink-0">
+                  <Package className="w-5 h-5 md:w-8 md:h-8" />
                 </div>
-                <div className="relative z-10 space-y-4 mt-auto">
-                  <h3 className="text-2xl md:text-3xl font-headline font-bold text-primary tracking-tight keep-all">Individual Sealing</h3>
-                  <p className="text-on-surface-variant text-lg leading-relaxed keep-all">공기와 습기를 차단하는 독자적인 실링 기술로 매일 새 제품을 만나는 듯한 신선함을 경험하세요.</p>
+                <div className="relative z-10 space-y-1.5 md:space-y-4 mt-auto">
+                  <h3 className="text-sm md:text-3xl font-headline font-bold text-primary tracking-tight keep-all leading-tight">Individual<br className="md:hidden" /> Sealing</h3>
+                  <p className="text-on-surface-variant text-[11px] md:text-lg leading-snug md:leading-relaxed keep-all">보존을 위한 독자적인 실링 기술.</p>
                 </div>
               </div>
             </div>
@@ -1471,11 +1473,11 @@ export default function App() {
         </section>
 
         {/* Pre-launch Form */}
-        <section className="py-32 relative" id="pre-register">
+        <section className="py-10 md:py-32 relative" id="pre-register">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/30 pointer-events-none"></div>
-          <div className="max-w-4xl mx-auto px-8">
-            <div className="bg-white p-8 md:p-16 rounded-3xl border border-outline-variant/15 relative overflow-hidden shadow-[0_32px_64px_rgba(26,54,93,0.06)]">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+          <div className="max-w-4xl mx-auto px-4 md:px-8">
+            <div className="bg-white p-5 md:p-16 rounded-2xl md:rounded-3xl border border-outline-variant/15 relative overflow-hidden shadow-[0_16px_32px_rgba(26,54,93,0.06)] md:shadow-[0_32px_64px_rgba(26,54,93,0.06)]">
+              <div className="absolute top-0 right-0 w-40 h-40 md:w-64 md:h-64 bg-secondary/5 rounded-full blur-3xl -mr-20 -mt-20 md:-mr-32 md:-mt-32"></div>
               
               {!isRegistered ? (
                 <motion.div 
@@ -1483,69 +1485,69 @@ export default function App() {
                   animate={{ opacity: 1 }}
                   className="relative z-10"
                 >
-                  <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-5xl font-headline font-extrabold text-primary tracking-tighter mb-4 keep-all">내 주변에 밀접이 생기면<br className="hidden sm:block"/> 알려드릴게요.</h2>
-                    <p className="text-on-surface-variant max-w-xl mx-auto font-body keep-all leading-relaxed">
+                  <div className="text-center mb-6 md:mb-12">
+                    <h2 className="text-xl md:text-5xl font-headline font-extrabold text-primary tracking-tighter mb-2 md:mb-4 keep-all">내 주변에 밀접이 생기면<br className="hidden sm:block"/> 알려드릴게요.</h2>
+                    <p className="text-on-surface-variant max-w-xl mx-auto font-body keep-all leading-snug md:leading-relaxed text-[13px] md:text-base">
                       {quizStep === 3 ? (
                         <><span className="text-secondary font-bold">분석하신 맞춤 영양 조합을 담았습니다.</span><br/>내 생활 반경에 키오스크가 설치되면 바로 픽업할 수 있게 알려드릴게요!</>
                       ) : (
                         <>주로 생활하시는 직장이나 생활 반경 내에<br className="hidden sm:block"/> 밀접 키오스크가 설치되는 경우, 가장 먼저 알림을 보내드립니다.</>
                       )}
                       <br />
-                      <span className="inline-block mt-4 px-5 py-2.5 bg-secondary/10 text-primary font-bold rounded-xl text-sm shadow-sm">
-                        🎁 알림 신청 시, 해당 지역 서비스 개시 후 <span className="text-secondary">3일치 맞춤 영양제 이용권</span>을 드립니다!
+                      <span className="inline-block mt-3 md:mt-4 px-3 py-1.5 md:px-5 md:py-2.5 bg-secondary/10 text-primary font-bold rounded-lg md:rounded-xl text-[11px] md:text-sm shadow-sm break-keep">
+                        🎁 알림 신청 시, 런칭 후 <span className="text-secondary">3일치 맞춤 영양제 이용권</span> 제공
                       </span>
                     </p>
                   </div>
                   
-                  <form onSubmit={handleRegister} className="space-y-6 max-w-xl mx-auto">
-                    <div className="space-y-2">
-                      <label className="block font-label text-sm font-bold text-primary">이름</label>
+                  <form onSubmit={handleRegister} className="space-y-3 md:space-y-6 max-w-xl mx-auto">
+                    <div className="space-y-1 md:space-y-2">
+                      <label className="block font-label text-[11px] md:text-sm font-bold text-primary">이름</label>
                       <input 
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 rounded-2xl border-none bg-surface-container-low shadow-sm focus:ring-2 focus:ring-secondary/20 focus:outline-none placeholder:text-outline text-on-surface" 
-                        placeholder="성함을 입력해 주세요" 
+                        className="w-full px-3 py-2.5 md:px-6 md:py-4 rounded-xl border-none bg-surface-container-low shadow-sm focus:ring-2 focus:ring-secondary/20 focus:outline-none placeholder:text-outline text-on-surface text-[13px] md:text-base" 
+                        placeholder="이름" 
                         required 
                         type="text"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <label className="block font-label text-sm font-bold text-primary">주요 생활 지역 (직장/집)</label>
+                    <div className="space-y-1 md:space-y-2">
+                      <label className="block font-label text-[11px] md:text-sm font-bold text-primary">주요 생활 지역 (직장/집)</label>
                       <input 
                         name="location"
                         value={formData.location}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 rounded-2xl border-none bg-surface-container-low shadow-sm focus:ring-2 focus:ring-secondary/20 focus:outline-none placeholder:text-outline text-on-surface" 
-                        placeholder="예: 강남구 테헤란로, 여의도동" 
+                        className="w-full px-3 py-2.5 md:px-6 md:py-4 rounded-xl border-none bg-surface-container-low shadow-sm focus:ring-2 focus:ring-secondary/20 focus:outline-none placeholder:text-outline text-on-surface text-[13px] md:text-base" 
+                        placeholder="예: 강남구 여의도동" 
                         required 
                         type="text"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <label className="block font-label text-sm font-bold text-primary">연락처</label>
+                    <div className="space-y-1 md:space-y-2">
+                      <label className="block font-label text-[11px] md:text-sm font-bold text-primary">연락처</label>
                       <input 
                         name="contact"
                         value={formData.contact}
                         onChange={handleInputChange}
-                        className="w-full px-6 py-4 rounded-2xl border-none bg-surface-container-low shadow-sm focus:ring-2 focus:ring-secondary/20 focus:outline-none placeholder:text-outline text-on-surface" 
+                        className="w-full px-3 py-2.5 md:px-6 md:py-4 rounded-xl border-none bg-surface-container-low shadow-sm focus:ring-2 focus:ring-secondary/20 focus:outline-none placeholder:text-outline text-on-surface text-[13px] md:text-base" 
                         placeholder="010-0000-0000" 
                         required 
                         type="tel"
                       />
                     </div>
-                    <div className="pt-4">
+                    <div className="pt-2 md:pt-4">
                       <button 
                         disabled={isSubmitting}
-                        className="w-full signature-gradient text-white py-5 rounded-2xl font-bold text-lg hover:scale-[1.01] active:scale-[0.98] transition-all shadow-[0_12px_32px_rgba(26,54,93,0.15)] disabled:opacity-70 disabled:hover:scale-100" 
+                        className="w-full signature-gradient text-white py-3 md:py-5 rounded-xl md:rounded-2xl font-bold text-[14px] md:text-lg hover:scale-[1.01] active:scale-[0.98] transition-all shadow-md md:shadow-[0_12px_32px_rgba(26,54,93,0.15)] disabled:opacity-70 disabled:hover:scale-100" 
                         type="submit"
                       >
-                        {isSubmitting ? '신청 중...' : '내 주변 밀접서비스 이용 가능 알림 신청하기'}
+                        {isSubmitting ? '신청 중...' : '알림 신청하기'}
                       </button>
                     </div>
-                    <p className="text-center text-xs text-outline font-label pt-4 leading-relaxed keep-all">
-                      알림 신청 시 서비스 론칭 정보 및 혜택 안내를 위한 <br className="md:hidden"/> 마케팅 정보 활용에 동의하게 됩니다.
+                    <p className="text-center text-[10px] md:text-xs text-outline font-label pt-2 md:pt-4 leading-tight md:leading-relaxed keep-all">
+                      알림 신청 시 혜택 안내를 위한 마케팅 정보 활용에 동의하게 됩니다.
                     </p>
                   </form>
                 </motion.div>
@@ -1567,11 +1569,11 @@ export default function App() {
         </section>
 
         {/* Restaurant Recommendation Form */}
-        <section className="py-20 md:py-32 relative bg-surface-container-lowest" id="restaurant-recommend">
-          <div className="max-w-4xl mx-auto px-8">
-            <div className="bg-primary p-8 md:p-16 rounded-3xl relative overflow-hidden shadow-[0_32px_64px_rgba(26,54,93,0.15)]">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
+        <section className="py-10 md:py-32 relative bg-surface-container-lowest" id="restaurant-recommend">
+          <div className="max-w-4xl mx-auto px-4 md:px-8">
+            <div className="bg-primary p-5 md:p-16 rounded-2xl md:rounded-3xl relative overflow-hidden shadow-[0_16px_32px_rgba(26,54,93,0.08)] md:shadow-[0_32px_64px_rgba(26,54,93,0.15)]">
+              <div className="absolute top-0 right-0 w-40 h-40 md:w-64 md:h-64 bg-secondary/20 rounded-full blur-3xl -mr-20 -mt-20 md:-mr-32 md:-mt-32"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 md:w-64 md:h-64 bg-secondary/10 rounded-full blur-3xl -ml-20 -mb-20 md:-ml-32 md:-mb-32"></div>
               
               {!isRestaurantRegistered ? (
                 <motion.div 
@@ -1579,61 +1581,61 @@ export default function App() {
                   animate={{ opacity: 1 }}
                   className="relative z-10"
                 >
-                  <div className="text-center mb-12">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 text-secondary mb-6 backdrop-blur-sm">
-                      <Map className="w-8 h-8" />
+                  <div className="text-center mb-6 md:mb-12">
+                    <div className="inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/10 text-secondary mb-3 md:mb-6 backdrop-blur-sm">
+                      <Map className="w-5 h-5 md:w-8 md:h-8" />
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-headline font-extrabold text-white tracking-tighter mb-4 keep-all">밀접 키오스크 설치를 원하는<br/> 식당을 추천해주세요!</h2>
-                    <p className="text-blue-100/80 max-w-xl mx-auto font-body keep-all text-lg leading-relaxed">
-                      추천해주신 식당에 밀접 키오스크가 설치되면,<br className="hidden md:block"/>
-                      추천인 중 추첨을 통해 <strong className="text-secondary font-bold">1주일치 맞춤 영양제 이용권</strong>을 드립니다.
+                    <h2 className="text-xl md:text-4xl font-headline font-extrabold text-white tracking-tighter mb-2 md:mb-4 keep-all">밀접 설치를 위한<br/>식당을 추천해주세요!</h2>
+                    <p className="text-blue-100/80 max-w-xl mx-auto font-body keep-all text-[13px] md:text-lg leading-snug md:leading-relaxed">
+                      추천해주신 식당에 오프라인 지점이 오픈되면,<br className="hidden md:block"/>
+                      추첨을 통해 <strong className="text-secondary font-bold">맞춤 영양제 1주일 이용권</strong>을 드립니다.
                     </p>
                   </div>
                   
-                  <form onSubmit={handleRestaurantSubmit} className="space-y-6 max-w-xl mx-auto">
-                    <div className="space-y-2">
-                      <label className="block font-label text-sm font-bold text-blue-100">추천 식당 상호명</label>
+                  <form onSubmit={handleRestaurantSubmit} className="space-y-3 md:space-y-6 max-w-xl mx-auto">
+                    <div className="space-y-1 md:space-y-2">
+                      <label className="block font-label text-[11px] md:text-sm font-bold text-blue-100">추천 식당 상호명</label>
                       <input 
                         name="restaurantName"
                         value={restaurantFormData.restaurantName}
                         onChange={handleRestaurantInputChange}
-                        className="w-full px-6 py-4 rounded-2xl border border-white/10 bg-white/5 text-white shadow-sm focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 focus:outline-none placeholder:text-blue-100/30 backdrop-blur-sm transition-all" 
-                        placeholder="예: 밀접식당 강남점" 
+                        className="w-full px-3 py-2.5 md:px-6 md:py-4 rounded-xl md:rounded-2xl border border-white/10 bg-white/5 text-white shadow-sm focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 focus:outline-none placeholder:text-blue-100/30 backdrop-blur-sm transition-all text-[13px] md:text-base" 
+                        placeholder="예: 강남 코엑스점" 
                         required 
                         type="text"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <label className="block font-label text-sm font-bold text-blue-100">식당 지역 / 위치</label>
+                    <div className="space-y-1 md:space-y-2">
+                      <label className="block font-label text-[11px] md:text-sm font-bold text-blue-100">위치 (주소)</label>
                       <input 
                         name="restaurantLocation"
                         value={restaurantFormData.restaurantLocation}
                         onChange={handleRestaurantInputChange}
-                        className="w-full px-6 py-4 rounded-2xl border border-white/10 bg-white/5 text-white shadow-sm focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 focus:outline-none placeholder:text-blue-100/30 backdrop-blur-sm transition-all" 
-                        placeholder="예: 서울시 강남구 테헤란로 123" 
+                        className="w-full px-3 py-2.5 md:px-6 md:py-4 rounded-xl md:rounded-2xl border border-white/10 bg-white/5 text-white shadow-sm focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 focus:outline-none placeholder:text-blue-100/30 backdrop-blur-sm transition-all text-[13px] md:text-base" 
+                        placeholder="예: 강남구 테헤란로" 
                         required 
                         type="text"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <label className="block font-label text-sm font-bold text-blue-100">연락처 (경품 지급용)</label>
+                    <div className="space-y-1 md:space-y-2">
+                      <label className="block font-label text-[11px] md:text-sm font-bold text-blue-100">연락처</label>
                       <input 
                         name="contact"
                         value={restaurantFormData.contact}
                         onChange={handleRestaurantInputChange}
-                        className="w-full px-6 py-4 rounded-2xl border border-white/10 bg-white/5 text-white shadow-sm focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 focus:outline-none placeholder:text-blue-100/30 backdrop-blur-sm transition-all" 
+                        className="w-full px-3 py-2.5 md:px-6 md:py-4 rounded-xl md:rounded-2xl border border-white/10 bg-white/5 text-white shadow-sm focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 focus:outline-none placeholder:text-blue-100/30 backdrop-blur-sm transition-all text-[13px] md:text-base" 
                         placeholder="010-0000-0000" 
                         required 
                         type="tel"
                       />
                     </div>
-                    <div className="pt-4">
+                    <div className="pt-2 md:pt-4">
                       <button 
                         disabled={isRestaurantSubmitting}
-                        className="w-full bg-secondary text-primary py-5 rounded-2xl font-bold text-lg hover:bg-secondary/90 hover:scale-[1.01] active:scale-[0.98] transition-all shadow-[0_12px_32px_rgba(0,0,0,0.2)] disabled:opacity-70 disabled:hover:scale-100" 
+                        className="w-full bg-secondary text-primary py-3 md:py-5 rounded-xl md:rounded-2xl font-bold text-[14px] md:text-lg hover:bg-secondary/90 hover:scale-[1.01] active:scale-[0.98] transition-all shadow-md md:shadow-[0_12px_32px_rgba(0,0,0,0.2)] disabled:opacity-70 disabled:hover:scale-100" 
                         type="submit"
                       >
-                        {isRestaurantSubmitting ? '추천 중...' : '식당 추천하고 혜택 받기'}
+                        {isRestaurantSubmitting ? '추천 중...' : '식당 추천완료'}
                       </button>
                     </div>
                   </form>
