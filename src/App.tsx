@@ -794,15 +794,15 @@ const UploadedMockup = ({ filename }: { filename: string }) => {
   return (
     <div className="relative w-full bg-white flex flex-col font-sans">
       {hasError ? (
-        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center aspect-[9/16]">
+        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center aspect-[390/844]">
           <div className="w-16 h-16 bg-slate-200 rounded-2xl flex items-center justify-center mb-4 text-slate-400 border border-slate-300">
              <ImageIcon className="w-8 h-8" />
           </div>
-          <p className="text-[15px] font-bold text-slate-700 mb-3">UI 이미지를 업로드해주세요</p>
+          <p className="text-[15px] font-bold text-slate-700 mb-3 break-keep">UI 이미지가 없거나 이름이 다릅니다</p>
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm w-full">
-            <p className="text-[13px] text-slate-500 break-keep leading-relaxed text-left">
-              1. 좌측 파일 탐색기에서 <span className="font-bold text-slate-700">public</span> 폴더 열기<br/>
-              2. 이미지 이름을 <span className="font-mono text-primary font-bold bg-primary/10 px-1 py-0.5 rounded">{filename}</span> 으로 변경 후 업로드
+            <p className="text-[12px] text-slate-500 break-keep leading-relaxed text-left">
+              우측 위 톱니바퀴에서 <span className="font-bold text-slate-700">Export</span>를 눌러 
+              Github에 다시 배포(Deploy)해 주셔야 반영됩니다.
             </p>
           </div>
         </div>
@@ -826,31 +826,31 @@ const StickyFeatures = () => {
       title: "자판기 태그하고 즉시 수령",
       desc: "제휴 식당이나 오피스에 설치된 밀접 자판기에 스마트폰을 태그하세요. 내게 필요한 맞춤 영양제를 즉시 수령할 수 있습니다.",
       icon: <SmartphoneNfc className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup filename="밀접 앱 - 홈(김밀접).png" />
+      mockup: <UploadedMockup filename="home.png" />
     },
     {
       title: "스마트 섭취 기록 & 분석",
       desc: "주·월 단위 리포트와 나의 활동 기록으로 매일매일 조금씩 건강해지는 증거를 확인하세요.",
       icon: <Activity className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup filename="밀접 앱 - 마이페이지 - 기록.png" />
+      mockup: <UploadedMockup filename="record.png" />
     },
     {
       title: "내 주변 밀접 자판기 탐색",
       desc: "위치 기반으로 가까운 제휴 식당의 영양제 자판기를 찾고 픽업 예약을 진행해보세요. 지도 앱 없이도 바로 찾아갈 수 있습니다.",
       icon: <MapPin className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup filename="밀접 앱 - 주변찾기.jpeg" />
+      mockup: <UploadedMockup filename="search.jpeg" />
     },
     {
       title: "소셜 & 루틴 메이트",
       desc: "친구, 가족, 직장 동료와 건강한 섭취 루틴을 공유하세요. 칭찬하고 찌르며 혼자가 아닌 함께하는 웰니스를 경험할 수 있습니다.",
       icon: <Users className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup filename="밀접 앱 - 함께.jpeg" />
+      mockup: <UploadedMockup filename="social.jpeg" />
     },
     {
       title: "밀접 자판기 설치 제안하기",
       desc: "내 동선 주변에 아직 밀접 자판기가 없다면? 자주 방문하는 오피스나 식당에 설치를 제안하고, 필요한 영양을 가장 가까운 곳에서 만나보세요.",
       icon: <User className="w-7 h-7 text-primary" />,
-      mockup: <UploadedMockup filename="밀접 앱 - 주변찾기-설치 장소 추천.jpeg" />
+      mockup: <UploadedMockup filename="propose.jpeg" />
     }
   ];
 
