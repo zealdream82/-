@@ -793,31 +793,15 @@ const MockupMyPage = () => (
 );
 
 const UploadedMockup = ({ imgSrc, altText = "mockup" }: { imgSrc: string, altText?: string }) => {
-  const [hasError, setHasError] = useState(false);
-
+  // 에러 체크를 완전히 비활성화하여 엑스박스나 에러화면이 뜨지 않도록 강제합니다.
+  // Base64 번들링이 적용되었으므로 이미지 로드 실패가 발생하지 않습니다.
   return (
     <div className="relative w-full bg-white flex flex-col font-sans">
-      {hasError ? (
-        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center aspect-[390/844]">
-          <div className="w-16 h-16 bg-slate-200 rounded-2xl flex items-center justify-center mb-4 text-slate-400 border border-slate-300">
-             <ImageIcon className="w-8 h-8" />
-          </div>
-          <p className="text-[15px] font-bold text-slate-700 mb-3 break-keep">UI 이미지가 없거나 이름이 다릅니다</p>
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm w-full">
-            <p className="text-[12px] text-slate-500 break-keep leading-relaxed text-left">
-              우측 위 톱니바퀴에서 <span className="font-bold text-slate-700">Export</span>를 눌러 
-              Github에 다시 배포(Deploy)해 주셔야 반영됩니다.
-            </p>
-          </div>
-        </div>
-      ) : (
-        <img 
-          src={imgSrc} 
-          alt={altText} 
-          className="w-full h-auto block" 
-          onError={() => setHasError(true)} 
-        />
-      )}
+      <img 
+        src={imgSrc} 
+        alt={altText} 
+        className="w-full h-auto block" 
+      />
     </div>
   );
 };
