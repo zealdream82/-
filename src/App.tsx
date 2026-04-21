@@ -7,11 +7,12 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import SupplementImage from './영양제_봉투의_텍스트를_202604141018.png';
 import RoutineImage from './직장인 건강루틴.png';
-import homeImg from './assets/home.png';
-import recordImg from './assets/record.png';
-import searchImg from './assets/search.jpeg';
-import socialImg from './assets/social.jpeg';
-import proposeImg from './assets/propose.jpeg';
+// Using the English filenames pointing to the root directory where the user uploaded them
+import homeImg from '../home.png';
+import recordImg from '../record.png';
+import searchImg from '../search.jpeg';
+import socialImg from '../social.jpeg';
+import proposeImg from '../propose.jpeg';
 import { 
   Activity, 
   FlaskConical, 
@@ -892,12 +893,12 @@ const StickyFeatures = () => {
             </div>
             
             <div className="w-full h-full bg-[#0F172A] rounded-[2.25rem] overflow-hidden relative">
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                  <motion.div
                    key={activeIndex}
-                   initial={{ opacity: 0, scale: 0.95 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0, scale: 1.05 }}
+                   initial={{ opacity: 0 }}
+                   animate={{ opacity: 1 }}
+                   exit={{ opacity: 0 }}
                    transition={{ duration: 0.3 }}
                    className="absolute inset-0 w-full h-full"
                  >
