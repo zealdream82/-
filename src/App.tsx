@@ -1265,7 +1265,7 @@ export default function App() {
               <p className="text-blue-100/70 max-w-xl mx-auto font-body keep-all text-lg">단 30초, 몇 가지 질문을 통해 당신에게 꼭 필요한 영양 조합을 분석해 드립니다.</p>
             </div>
             
-            <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_40px_80px_rgba(0,0,0,0.3)] relative min-h-[500px] flex flex-col justify-center overflow-hidden">
+            <div className="bg-white rounded-[2.5rem] p-6 md:p-12 shadow-[0_40px_80px_rgba(0,0,0,0.3)] relative min-h-[400px] flex flex-col justify-center overflow-hidden">
               <AnimatePresence mode="wait">
                 {quizStep === 1 && (
                   <motion.div 
@@ -1273,33 +1273,33 @@ export default function App() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="w-full space-y-8"
+                    className="w-full space-y-6 md:space-y-8"
                   >
-                    <div className="space-y-2">
-                      <span className="text-secondary font-bold text-sm tracking-widest uppercase">Step 01 / 02</span>
-                      <h3 className="text-3xl font-headline font-extrabold text-primary keep-all">기본적인 정보를 알려주세요.</h3>
+                    <div className="space-y-1.5 md:space-y-2">
+                      <span className="text-secondary font-bold text-[11px] md:text-sm tracking-widest uppercase">Step 01 / 02</span>
+                      <h3 className="text-xl md:text-3xl font-headline font-extrabold text-primary keep-all">기본적인 정보를 알려주세요.</h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="block text-sm font-bold text-on-surface-variant">성별</label>
-                        <div className="flex gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="block text-[11px] md:text-sm font-bold text-on-surface-variant">성별</label>
+                        <div className="flex gap-3 md:gap-4">
                           <button 
                             onClick={() => setGender('male')}
-                            className={`flex-1 py-4 px-6 border-2 rounded-2xl font-bold transition-all ${gender === 'male' ? 'border-secondary bg-secondary-container/20 text-secondary' : 'border-surface-container-highest text-primary hover:border-secondary/50'}`}
+                            className={`flex-1 py-3 px-4 md:py-4 md:px-6 border-2 rounded-xl border-secondary font-bold transition-all text-sm md:text-base ${gender === 'male' ? 'bg-secondary-container/20 text-secondary' : 'border-surface-container-highest text-primary hover:border-secondary/50'}`}
                           >
                             남성
                           </button>
                           <button 
                             onClick={() => setGender('female')}
-                            className={`flex-1 py-4 px-6 border-2 rounded-2xl font-bold transition-all ${gender === 'female' ? 'border-secondary bg-secondary-container/20 text-secondary' : 'border-surface-container-highest text-primary hover:border-secondary/50'}`}
+                            className={`flex-1 py-3 px-4 md:py-4 md:px-6 border-2 rounded-xl border-secondary font-bold transition-all text-sm md:text-base ${gender === 'female' ? 'bg-secondary-container/20 text-secondary' : 'border-surface-container-highest text-primary hover:border-secondary/50'}`}
                           >
                             여성
                           </button>
                         </div>
                       </div>
-                      <div className="space-y-3">
-                        <label className="block text-sm font-bold text-on-surface-variant">연령대</label>
-                        <select className="w-full py-4 px-6 border-2 border-surface-container-highest rounded-2xl font-bold text-primary focus:border-secondary focus:ring-0 outline-none transition-all bg-transparent">
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="block text-[11px] md:text-sm font-bold text-on-surface-variant">연령대</label>
+                        <select className="w-full py-3 px-4 md:py-4 md:px-6 border-2 border-surface-container-highest rounded-xl md:rounded-2xl font-bold text-primary focus:border-secondary focus:ring-0 outline-none transition-all bg-transparent text-sm md:text-base">
                           <option value="20s">20대</option>
                           <option value="30s">30대</option>
                           <option value="40s">40대</option>
@@ -1307,12 +1307,12 @@ export default function App() {
                         </select>
                       </div>
                     </div>
-                    <div className="pt-6">
+                    <div className="pt-4 md:pt-6">
                       <button 
                         onClick={() => setQuizStep(2)}
-                        className="w-full py-5 signature-gradient text-white rounded-2xl font-bold text-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
+                        className="w-full py-3.5 md:py-5 signature-gradient text-white rounded-xl md:rounded-2xl font-bold text-sm md:text-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
                       >
-                        다음으로 <ArrowRight className="w-5 h-5" />
+                        다음으로 <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                       </button>
                     </div>
                   </motion.div>
@@ -1326,12 +1326,12 @@ export default function App() {
                     exit={{ opacity: 0, y: -20 }}
                     className="w-full space-y-8"
                   >
-                    <div className="space-y-2">
-                      <span className="text-secondary font-bold text-sm tracking-widest uppercase">Step 02 / 02</span>
-                      <h3 className="text-3xl font-headline font-extrabold text-primary keep-all">가장 고민되는 건강 분야는 무엇인가요?</h3>
-                      <p className="text-on-surface-variant text-sm">최대 3개까지 선택 가능합니다.</p>
+                    <div className="space-y-1.5 md:space-y-2">
+                      <span className="text-secondary font-bold text-[11px] md:text-sm tracking-widest uppercase">Step 02 / 02</span>
+                      <h3 className="text-xl md:text-3xl font-headline font-extrabold text-primary keep-all">가장 고민되는 건강 분야는 무엇인가요?</h3>
+                      <p className="text-on-surface-variant text-[11px] md:text-sm">최대 3개까지 선택 가능합니다.</p>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                       {[
                         { id: 'sleep', label: '수면/스트레스', icon: Moon },
                         { id: 'energy', label: '활력/피로 개선', icon: Zap },
@@ -1345,24 +1345,24 @@ export default function App() {
                           <button 
                             key={item.id}
                             onClick={() => toggleConcern(item.id)}
-                            className={`p-4 border-2 rounded-2xl text-left transition-all flex flex-col gap-3 group ${isSelected ? 'border-secondary bg-secondary-container/20' : 'border-surface-container-highest hover:border-secondary/50'}`}
+                            className={`p-3 md:p-4 border-2 rounded-xl md:rounded-2xl text-left transition-all flex flex-col gap-2 md:gap-3 group ${isSelected ? 'border-secondary bg-secondary-container/20' : 'border-surface-container-highest hover:border-secondary/50'}`}
                           >
-                            <item.icon className={`w-6 h-6 transition-colors ${isSelected ? 'text-secondary' : 'text-primary group-hover:text-secondary'}`} />
-                            <span className={`font-bold ${isSelected ? 'text-secondary' : 'text-primary'}`}>{item.label}</span>
+                            <item.icon className={`w-5 h-5 md:w-6 md:h-6 transition-colors ${isSelected ? 'text-secondary' : 'text-primary group-hover:text-secondary'}`} />
+                            <span className={`font-bold text-[13px] md:text-base tracking-tight ${isSelected ? 'text-secondary' : 'text-primary'}`}>{item.label}</span>
                           </button>
                         );
                       })}
                     </div>
-                    <div className="flex gap-4 pt-4">
+                    <div className="flex gap-3 md:gap-4 pt-3 md:pt-4">
                       <button 
                         onClick={() => setQuizStep(1)}
-                        className="flex-1 py-5 border-2 border-surface-container-highest text-primary rounded-2xl font-bold text-lg hover:bg-surface-container-low transition-all"
+                        className="flex-1 py-3.5 md:py-5 border-2 border-surface-container-highest text-primary rounded-xl md:rounded-2xl font-bold text-sm md:text-lg hover:bg-surface-container-low transition-all"
                       >
                         이전
                       </button>
                       <button 
                         onClick={() => setQuizStep(3)}
-                        className="flex-[2] py-5 signature-gradient text-white rounded-2xl font-bold text-lg hover:scale-[1.01] transition-all"
+                        className="flex-[2] py-3.5 md:py-5 signature-gradient text-white rounded-xl md:rounded-2xl font-bold text-sm md:text-lg hover:scale-[1.01] transition-all"
                       >
                         결과 분석하기
                       </button>
@@ -1378,14 +1378,14 @@ export default function App() {
                     exit={{ opacity: 0, y: -20 }}
                     className="w-full space-y-8"
                   >
-                    <div className="text-center space-y-4">
-                      <div className="w-20 h-20 bg-secondary-container rounded-full flex items-center justify-center mx-auto text-secondary">
-                        <BadgeCheck className="w-10 h-10" />
+                    <div className="text-center space-y-3 md:space-y-4">
+                      <div className="w-14 h-14 md:w-20 md:h-20 bg-secondary-container rounded-full flex items-center justify-center mx-auto text-secondary">
+                        <BadgeCheck className="w-7 h-7 md:w-10 md:h-10" />
                       </div>
-                      <h3 className="text-3xl font-headline font-extrabold text-primary keep-all">분석된 맞춤 영양 조합입니다.</h3>
+                      <h3 className="text-2xl md:text-3xl font-headline font-extrabold text-primary keep-all">분석된 맞춤 영양 조합입니다.</h3>
                     </div>
-                    <div className="bg-surface-container-low rounded-3xl p-6 md:p-8 space-y-6">
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-surface-container-low rounded-[1.5rem] md:rounded-3xl p-5 md:p-8 space-y-5 md:space-y-6">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                         {[
                           { id: 'sleep', name: '테아닌', color: 'bg-green-100 text-green-600', desc: '스트레스 완화' },
                           { id: 'energy', name: '비타민 B군', color: 'bg-yellow-100 text-yellow-600', desc: '활력 충전' },
@@ -1394,32 +1394,32 @@ export default function App() {
                           { id: 'immunity', name: '아연/비타민C', color: 'bg-orange-100 text-orange-600', desc: '면역력 강화' },
                           { id: 'circulation', name: '오메가3', color: 'bg-amber-100 text-amber-600', desc: '혈행 개선' }
                         ].filter(pill => concerns.length === 0 || concerns.includes(pill.id)).slice(0, 4).map((pill) => (
-                          <div key={pill.name} className="bg-white p-4 rounded-2xl shadow-sm border border-outline-variant/20 flex flex-col items-center text-center gap-3 hover:border-secondary/50 transition-colors">
-                            <div className={`w-12 h-12 rounded-full ${pill.color} flex items-center justify-center shadow-inner`}>
-                              <Pill className="w-6 h-6" />
+                          <div key={pill.name} className="bg-white p-3 md:p-4 rounded-xl md:rounded-2xl shadow-sm border border-outline-variant/20 flex flex-col items-center text-center gap-2 md:gap-3 hover:border-secondary/50 transition-colors">
+                            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full ${pill.color} flex items-center justify-center shadow-inner`}>
+                              <Pill className="w-5 h-5 md:w-6 md:h-6" />
                             </div>
                             <div>
-                              <div className="font-bold text-primary text-sm">{pill.name}</div>
-                              <div className="text-xs text-on-surface-variant mt-1">{pill.desc}</div>
+                              <div className="font-bold text-primary text-[12px] md:text-sm">{pill.name}</div>
+                              <div className="text-[10px] md:text-xs text-on-surface-variant mt-0.5 md:mt-1">{pill.desc}</div>
                             </div>
                           </div>
                         ))}
                       </div>
                       
-                      <div className="bg-white p-6 rounded-2xl border border-secondary/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+                      <div className="bg-white p-5 md:p-6 rounded-xl md:rounded-2xl border border-secondary/30 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 shadow-sm">
                         <div className="text-center md:text-left shrink-0">
-                          <div className="text-sm font-bold text-secondary mb-1">1회분 맞춤 조제 가격</div>
+                          <div className="text-[12px] md:text-sm font-bold text-secondary mb-1">1회분 맞춤 조제 가격</div>
                           <div className="flex items-baseline justify-center md:justify-start gap-1">
-                            <span className="text-3xl font-headline font-black text-primary">
+                            <span className="text-2xl md:text-3xl font-headline font-black text-primary">
                               {concerns.length === 0 ? '850' : (concerns.length * 300 + 250).toLocaleString()}
                             </span>
-                            <span className="text-on-surface-variant font-medium">원</span>
+                            <span className="text-on-surface-variant font-medium text-[13px] md:text-base">원</span>
                           </div>
                         </div>
-                        <div className="h-px w-full md:w-px md:h-16 bg-outline-variant/30"></div>
+                        <div className="h-px w-full md:w-px md:h-16 bg-outline-variant/30 hidden md:block"></div>
                         <div className="text-center md:text-left">
-                          <p className="text-primary font-bold text-lg keep-all">대용량 구매 부담 없이, 딱 한 포만!</p>
-                          <p className="text-sm text-on-surface-variant mt-1.5 leading-relaxed keep-all">
+                          <p className="text-primary font-bold text-[15px] md:text-lg keep-all">대용량 구매 부담 없이, 딱 한 포만!</p>
+                          <p className="text-[12px] md:text-sm text-on-surface-variant mt-1.5 leading-relaxed keep-all">
                             선택하신 <span className="font-bold text-secondary">
                               {concerns.length === 0 
                                 ? '수면과 활력' 
@@ -1428,31 +1428,31 @@ export default function App() {
                                     vision: '눈 건강', immunity: '면역력', circulation: '혈행'
                                   }[c])).join(', ')}
                             </span> 개선 성분을 담았습니다.<br className="hidden md:block" />
-                            밀접 키오스크가 있는 주변 식당에서 식사 후 바로 신선하게 이용해보세요.
+                            밀접 키오스크가 있는 주변 식당에서 식사 후 바로 이용해보세요.
                           </p>
                         </div>
                       </div>
                     </div>
-                    <div className="pt-4">
+                    <div className="pt-2 md:pt-4">
                       <button 
                         onClick={() => {
                           const el = document.getElementById('pre-register');
                           el?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="w-full py-5 signature-gradient text-white rounded-2xl font-bold text-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2 shadow-xl"
+                        className="w-full py-4 md:py-5 signature-gradient text-white rounded-xl md:rounded-2xl font-bold text-[13px] md:text-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-1.5 md:gap-2 shadow-xl"
                       >
                         내 주변 밀접서비스 이용 가능 알림 신청하기
-                        <Bell className="w-5 h-5" />
+                        <Bell className="w-4 h-4 md:w-5 md:h-5" />
                       </button>
                       <button 
                         onClick={() => {
                           const el = document.getElementById('restaurant-recommend');
                           el?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="w-full py-4 bg-surface-container-highest text-primary rounded-2xl font-bold text-lg hover:bg-surface-container-highest/80 transition-all flex items-center justify-center gap-2 shadow-sm mt-3"
+                        className="w-full py-3 md:py-4 bg-surface-container-highest text-primary rounded-xl md:rounded-2xl font-bold text-[13px] md:text-lg hover:bg-surface-container-highest/80 transition-all flex items-center justify-center gap-1.5 md:gap-2 shadow-sm mt-3"
                       >
                         밀접 키오스크 설치 식당 추천하기
-                        <Map className="w-5 h-5" />
+                        <Map className="w-4 h-4 md:w-5 md:h-5" />
                       </button>
                       <button 
                         onClick={() => {
@@ -1460,7 +1460,7 @@ export default function App() {
                           setConcerns([]);
                           setGender(null);
                         }}
-                        className="w-full py-3 text-on-surface-variant font-medium text-sm mt-2 hover:text-primary transition-colors"
+                        className="w-full py-3 text-on-surface-variant font-medium text-[12px] md:text-sm mt-1 md:mt-2 hover:text-primary transition-colors"
                       >
                         다시 분석하기
                       </button>
@@ -1664,11 +1664,11 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-surface-container w-full py-16">
-        <div className="flex flex-col md:flex-row justify-between items-start w-full px-8 max-w-7xl mx-auto gap-8">
-          <div className="space-y-4">
-            <div className="font-headline font-bold text-2xl text-primary tracking-tight">밀접</div>
-            <div className="space-y-1 font-body text-xs text-slate-700 leading-loose">
+      <footer className="bg-surface-container w-full py-10 md:py-16">
+        <div className="flex flex-col md:flex-row justify-between items-start w-full px-5 md:px-8 max-w-7xl mx-auto gap-6 md:gap-8">
+          <div className="space-y-3 md:space-y-4">
+            <div className="font-headline font-bold text-xl md:text-2xl text-primary tracking-tight">밀접</div>
+            <div className="space-y-0.5 md:space-y-1 font-body text-[11px] md:text-xs text-slate-700 leading-relaxed md:leading-loose">
               <p>Representative: James Kim</p>
               <p>Email: support@mealjeop.com</p>
               <p>Business Registration: 123-45-67890</p>
@@ -1676,21 +1676,21 @@ export default function App() {
             </div>
           </div>
           
-          <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-            <div className="flex flex-col gap-3">
-              <h4 className="font-headline font-bold text-primary text-sm">Policy</h4>
-              <a className="font-body text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">Privacy Policy</a>
-              <a className="font-body text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">Terms of Service</a>
+          <div className="flex flex-row md:flex-row gap-8 md:gap-16 w-full md:w-auto">
+            <div className="flex flex-col gap-2 md:gap-3 flex-1 md:flex-auto">
+              <h4 className="font-headline font-bold text-primary text-[13px] md:text-sm">Policy</h4>
+              <a className="font-body text-[11px] md:text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">Privacy Policy</a>
+              <a className="font-body text-[11px] md:text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">Terms of Service</a>
             </div>
-            <div className="flex flex-col gap-3">
-              <h4 className="font-headline font-bold text-primary text-sm">Social</h4>
-              <a className="font-body text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">Instagram</a>
-              <a className="font-body text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">LinkedIn</a>
+            <div className="flex flex-col gap-2 md:gap-3 flex-1 md:flex-auto">
+              <h4 className="font-headline font-bold text-primary text-[13px] md:text-sm">Social</h4>
+              <a className="font-body text-[11px] md:text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">Instagram</a>
+              <a className="font-body text-[11px] md:text-xs text-slate-700 opacity-70 hover:opacity-100 hover:text-secondary transition-all" href="#">LinkedIn</a>
             </div>
           </div>
           
-          <div className="md:text-right">
-            <div className="font-body text-xs text-slate-700 opacity-70 leading-loose">
+          <div className="md:text-right mt-2 md:mt-0 w-full md:w-auto text-left">
+            <div className="font-body text-[10px] md:text-xs text-slate-700 opacity-70 leading-relaxed md:leading-loose border-t border-slate-200/50 md:border-0 pt-4 md:pt-0">
               © 2026 (주)밀접. All rights reserved.
             </div>
           </div>
